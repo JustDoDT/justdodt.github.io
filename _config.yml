@@ -2,7 +2,7 @@
 title: JustDoDT
 SEOTitle: JustDoDT'sBlog
 header-img: img/haha.jpg
-email: justdodt@outlook.com
+email:justdodt@outlook.com
 description: "Every failure is leading towards success."
 keyword: "Bigdata,Java,Python,Linux"
 url: "http://justdodt.github.io"          # your host, for absolute URL
@@ -18,7 +18,7 @@ sidebar-avatar: img/post-bg-rwd.jpg      # use absolute URL, seeing it's used in
 
 # SNS settings
 RSS: false
-# weibo_username:     qiubaiying
+# weibo_username:     
 zhihu_username:     liu-zhuang-71-48
 github_username:    JustDoDT
 facebook_username:  刘壮
@@ -57,7 +57,7 @@ kramdown:
 
 # 评论系统
 # Disqus（https://disqus.com/）
-# disqus_username: qiubaiying
+disqus_username: justdodt
 
 # Gitalk
 gitalk:
