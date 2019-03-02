@@ -9,10 +9,10 @@ header-img: "img/happy.jpg"
 <header class="intro-header" style="background-image: url('{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}')">
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 col-lg-offset-5 col-md-15 col-md-offset-1">
+            <div class="col-lg-8  col-md-15 col-md-offset-2">
                 <div class="site-heading" id="tag-heading">
-                    <h1>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</h1>
-                    <span class="subheading">{{ page.description }}</span>
+                    <h1 style="margin-top:80px;">{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</h1>
+                    <span class="subheading" style="padding-bottom:100px">{{ page.description }}</span>
                 </div>
             </div>
         </div>
