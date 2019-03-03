@@ -7,7 +7,7 @@ description: "Every failure is leading towards success."
 keyword: "Bigdata,Java,Python,Linux"
 # url: "https://justdodt.github.io"          # your host, for absolute URL
 baseurl: ""      # for example, '/blog' if your blog hosted on 'host/blog'
-# github_repo: "https://github.com/justdodt/justdodt.github.io.git" # you code repository
+github_repo: "https://github.com/justdodt/justdodt.github.io.git" # you code repository
 
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
@@ -64,7 +64,7 @@ gitalk:
   enable: true    #是否开启Gitalk评论
   clientID: c5a08d00dad77c843291                            #生成的clientID
   clientSecret: 311db5d60e758852a9b64bc9f3a4aa2c00205e59    #生成的clientSecret
-#   repo: "https://github.com/justdodt/justdodt.github.io.git"    #仓库名称
+  repo: justdodt.github.io    #仓库名称
   owner: JustDoDT   #github用户名
   admin: JustDoDT
   distractionFreeMode: true #是否启用类似FB的阴影遮罩
@@ -79,6 +79,7 @@ gitalk:
 
 #     // gitalk的主要参数
 # 		clientID: c5a08d00dad77c843291,
+
 # 		clientSecret: 311db5d60e758852a9b64bc9f3a4aa2c00205e59,
 # 		repo: "https://github.com/justdodt/justdodt.github.io.git",
 # 		owner: JustDoDT,
