@@ -4,10 +4,10 @@ SEOTitle: JustDoDT'sBlog
 header-img: img/haha.jpg
 email: justdodt@outlook.com
 description: "Every failure is leading towards success."
-keyword: "BY, BY Blog, °ØÓ«µÄ²©¿Í, JustDoDT, Çñ°ØÓ«, iOS, Apple, iPhone"
+keyword: "BY, BY Blog, æŸè§çš„åšå®¢, JustDoDT, é‚±æŸè§, iOS, Apple, iPhone"
 url: "http://JustDoDT.github.io"          # your host, for absolute URL
 baseurl: ""      # for example, '/blog' if your blog hosted on 'host/blog'
-github_repo: "https://github.com/JustDoDT/JustDoDT.github.io.git" # you code repository
+github_repo: "https://github.com/JustDoDT/justdodt.github.io.git" # you code repository
 
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
@@ -55,22 +55,22 @@ kramdown:
 
 
 
-# ÆÀÂÛÏµÍ³
-# Disqus£¨https://disqus.com/£©
+# è¯„è®ºç³»ç»Ÿ
+# Disqusï¼ˆhttps://disqus.com/ï¼‰
 # disqus_username: JustDoDT
 
 # Gitalk
 gitalk:
-  enable: true    #ÊÇ·ñ¿ªÆôGitalkÆÀÂÛ
-  clientID: c5a08d00dad77c843291                            #Éú³ÉµÄclientID
-  clientSecret: 311db5d60e758852a9b64bc9f3a4aa2c00205e59     #Éú³ÉµÄclientSecret
-  repo: JustDoDT.github.io    #²Ö¿âÃû³Æ
-  owner: JustDoDT    #githubÓÃ»§Ãû
+  enable: true    #æ˜¯å¦å¼€å¯Gitalkè¯„è®º
+  clientID: c5a08d00dad77c843291                            #ç”Ÿæˆçš„clientID
+  clientSecret: 311db5d60e758852a9b64bc9f3a4aa2c00205e59     #ç”Ÿæˆçš„clientSecret
+  repo: justdodt.github.io    #ä»“åº“åç§°
+  owner: JustDoDT    #githubç”¨æˆ·å
   admin: JustDoDT
-  distractionFreeMode: true #ÊÇ·ñÆôÓÃÀàËÆFBµÄÒõÓ°ÕÚÕÖ
+  distractionFreeMode: true #æ˜¯å¦å¯ç”¨ç±»ä¼¼FBçš„é˜´å½±é®ç½©
 
 
-# Í³¼Æ
+# ç»Ÿè®¡
 
 ## Analytics settings
 ## Baidu Analytics
@@ -78,15 +78,15 @@ gitalk:
 #
 ## Google Analytics
 #ga_track_id: 'UA-90855596-1'            # Format: UA-xxxxxx-xx
-#ga_domain: JustDoDT.top               # Ä¬ÈÏµÄÊÇ auto, ÕâÀïÎÒÊÇ×Ô¶¨ÒåÁËµÄÓòÃû£¬ÄãÈç¹ûÃ»ÓĞ×Ô¼ºµÄÓòÃû£¬ĞèÒª¸Ä³Éauto
+#ga_domain: JustDoDT.top               # é»˜è®¤çš„æ˜¯ auto, è¿™é‡Œæˆ‘æ˜¯è‡ªå®šä¹‰äº†çš„åŸŸåï¼Œä½ å¦‚æœæ²¡æœ‰è‡ªå·±çš„åŸŸåï¼Œéœ€è¦æ”¹æˆauto
 
 
 
 
 
 # Featured Tags
-featured-tags: true                     # ÊÇ·ñÊ¹ÓÃÊ×Ò³±êÇ©
-featured-condition-size: 1              # ÏàÍ¬±êÇ©ÊıÁ¿´óÓÚÕâ¸öÊı£¬²Å»á³öÏÖÔÚÊ×Ò³
+featured-tags: true                     # æ˜¯å¦ä½¿ç”¨é¦–é¡µæ ‡ç­¾
+featured-condition-size: 1              # ç›¸åŒæ ‡ç­¾æ•°é‡å¤§äºè¿™ä¸ªæ•°ï¼Œæ‰ä¼šå‡ºç°åœ¨é¦–é¡µ
 
 
 
@@ -102,7 +102,7 @@ featured-condition-size: 1              # ÏàÍ¬±êÇ©ÊıÁ¿´óÓÚÕâ¸öÊı£¬²Å»á³öÏÖÔÚÊ×Ò³
 #        title: "WY",
 #        href: "http://zhengwuyang.com"
 #    },{
-#        title: "¼òÊé¡¤BY",
+#        title: "ç®€ä¹¦Â·BY",
 #        href: "http://www.jianshu.com/u/e71990ada2fd"
 #    },{
 #        title: "Apple",
