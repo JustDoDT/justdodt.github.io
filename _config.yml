@@ -18,7 +18,7 @@ sidebar-avatar: /img/bibi.jpg      # use absolute URL, seeing it's used in both 
 
 # SNS settings
 RSS: false
-# weibo_username:     JustDoDT
+weibo_username:     JustDoDT
 zhihu_username:    liu-zhuang-71-48
 github_username:    JustDoDT
 facebook_username:  刘壮
