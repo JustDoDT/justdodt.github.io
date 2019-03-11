@@ -1,0 +1,692 @@
+### 1. 面向对象简介
+
+- 类（Class）：用来描述具有相同的属性和方法的对象的集合。它定义了该集合中每个对象所共有的属性和方法。对象是类的实例。
+- 类变量：类变量在整个实例化的对象中是公用的。类变量定义在类中且在函数之外。类变量通常不作为实例变量使用。
+- 数据成员：类变量或者实例变量，用于处理类及其实例对象的相关的数据。
+- 方法重写：如果从父类继承的方法不能满足子类的要求，可以对其进行改写，这个过程叫做方法的覆盖（override）,也称为方法的重写。
+- 局部变量：定义在方法中的变量，只作用于当前实例的类。
+- 实例变量：在类的声明中，属性是用变量来表示的。这种变量就称为实例变量，是在类声明的内部但是在类的其他成员方法之外声明的。
+- 继承：即一个派生类（derived class）继承基类（base class）的字段和方法。继承也允许把一个派生类的对象作为一个基类对象对待。例如，有这样一个设计：一个Dog类型的对象派生自Animal类，这是模拟“是一个（is -a）”关系。
+- 实例化：创建一个类的实例，类的具体对象。
+- 方法：类中定义的函数。
+- 对象：通过类定义的数据结构实例。对象包括2个数据成员（类变量和实例变量）和方法。
+
+### 2. 创建类
+
+使用class 语句来创建一个类，class 之后为类的名称并以冒号结尾：
+
+    class ClassName:
+       '类的帮助信息'   #类文档字符串
+       class_suite  #类体
+
+#### 2.1 实例
+
+    class Employee:
+       '所有员工的基类'
+       empCount = 0
+     
+       def __init__(self, name, salary):
+          self.name = name
+          self.salary = salary
+          Employee.empCount += 1
+       
+       def displayCount(self):
+         print （"Total Employee %d" % Employee.empCount）
+     
+       def displayEmployee(self):
+          print （"Name : ", self.name,  ", Salary: ", self.salary）
+
+- empCount变量是一个类变量，它的值将在这个类的所有实例之间共享。你可以在内部类或外部类使用Employee.empCount访问。
+- 第一种方法init() 方法是一种特殊的方法，被称为类的构造函数或初始化方法，当创建了这个类的实例时就会调用该方法。
+- self代表类的实例，self在定义类的方法时是必须有的，虽然在调用时不必传入相应的参数。
+
+##### 2.1.1 self代表类的实例，而非类
+
+类的方法和普通的函数只有一个特别的区别----他们必须有一个额外的第一个参数名称，按照惯例它的名称是self。
+
+    In [2]: class Test:
+       ...:     def prt(self):
+       ...:         print(self)
+       ...:         print(self.__class__)
+       ...:         
+    
+    In [3]: t = Test()
+    
+    In [4]: t.prt()
+    <__main__.Test object at 0x7ff7cf7a2a20>
+    <class '__main__.Test'>
+
+从执行结果可以明显看出，self代表的是类的实例，代表当前对象的地址，而self.__class__则指向类。self不是python的关键字，我们把换成hello也是可以执行的。
+
+    In [7]: class Test:
+       ...:     def prt(hello):
+       ...:         print(hello)
+       ...:         print(hello.__class__)
+       ...:         
+    
+    In [8]: t = Test()
+    
+    In [9]: t.prt()
+    <__main__.Test object at 0x7ff7cf7b3cf8>
+    <class '__main__.Test'>
+
+### 2.2 创建实例对象
+
+实例化类其他编程语言一般用关键字new(如：java,Scala)，但是在python中并没有关键字，类的实例化类似函数调用方式。以下使用类的名称Employee来实例化，并通过__init__方法接收参数。
+
+    "创建 Employee 类的第一个对象"
+    emp1 = Employee("Zara", 2000)
+    "创建 Employee 类的第二个对象"
+    emp2 = Employee("Manni", 5000)
+
+### 2.3 访问属性
+
+可以使用点号.来访问对象的属性。
+
+    emp1.displayEmployee()
+    emp2.displayEmployee()
+    print ("Total Employee %d" % Employee.empCount)
+
+完整代码：
+
+    class Employee:
+       '所有员工的基类'
+       empCount = 0
+     
+       def __init__(self, name, salary):
+          self.name = name
+          self.salary = salary
+          Employee.empCount += 1
+       
+       def displayCount(self):
+         print ("Total Employee %d" % Employee.empCount)
+     
+       def displayEmployee(self):
+          print ("Name : ", self.name,  ", Salary: ", self.salary)
+     
+    "创建 Employee 类的第一个对象"
+    emp1 = Employee("Zara", 2000)
+    "创建 Employee 类的第二个对象"
+    emp2 = Employee("Manni", 5000)
+    emp1.displayEmployee()
+    emp2.displayEmployee()
+    print ("Total Employee %d" % Employee.empCount)
+
+执行以上代码运行的结果：
+
+    Name :  Zara ,Salary:  2000
+    Name :  Manni ,Salary:  5000
+    Total Employee 2
+
+你可以添加，删除，修改类的属性，如下所示：
+
+    emp1.age = 7  # 添加一个 'age' 属性
+    emp1.age = 8  # 修改 'age' 属性
+    del emp1.age  # 删除 'age' 属性
+
+### 2.4 Python内置属性
+
+- __dict__:类的属性（包含一个字典，由类的数据属性组成）
+- __doc__:类的文档字符串
+- __name__:类名
+- __moudle:  类定义所在的模块（类的全名是'main.className'，如果类位于一个导入模块mymod中，那么className.module__ 等于 mymod）
+- __bases__ : 类的所有父类构成元素（包含了一个由所有父类组成的元组）
+
+python内置属性调用实例如下：
+
+    class Employee:
+        '所有员工的基类'
+        empCount = 0
+    
+        def __init__(self, name, salary):
+            self.name = name
+            self.salary = salary
+            Employee.empCount += 1
+    
+        def displayCount(self):
+            print("Total Employee %d" % Employee.empCount)
+    
+        def displayEmployee(self):
+            print("Name : ", self.name, ", Salary: ", self.salary)
+    
+    
+    print("Employee.__doc__:", Employee.__doc__)
+    print("Employee.__name__:", Employee.__name__)
+    print("Employee.__module__:", Employee.__module__)
+    print("Employee.__bases__:", Employee.__bases__)
+    print("Employee.__dict__:", Employee.__dict__)
+
+运行结果：
+
+    Employee.__doc__: 所有员工的基类
+    Employee.__name__: Employee
+    Employee.__module__: __main__
+    Employee.__bases__: (<class 'object'>,)
+    Employee.__dict__:
+     {'__module__': '__main__', '__doc__': '所有员工的基类', 'empCount': 0, '__init__': <function Employee.__init__ at 0x000001E3D536EC80>, 'displayCount': <function Employee.displayCount at 0x000001E3D536ED08>, 'displayEmployee': <function Employee.displayEmployee at 0x000001E3D536ED90>, '__dict__': <attribute '__dict__' of 'Employee' objects>, '__weakref__': <attribute '__weakref__' of 'Employee' objects>}
+
+### 2.5 Python对象销毁（垃圾回收）
+
+- python使用了引用计数这一简单技术来跟踪和回收垃圾。
+- 在python内部记录着所有使用中的对象各有多少引用。
+- 一个内部跟踪变量，称为一个引用计数器。
+- 当对象被创建时，就创建一个引用计数，当这个对象不再需要时，也就是说，这个对象的引用计数变为0时，它被垃圾回收。但是回收不是“立即”的，由解释器在适当的时机，将垃圾对象占用的内存空间回收。
+
+    a = 40      # 创建对象  <40>
+    b = a       # 增加引用， <40> 的计数
+    c = [b]     # 增加引用.  <40> 的计数
+    
+    del a       # 减少引用 <40> 的计数
+    b = 100     # 减少引用 <40> 的计数
+    c[0] = -1   # 减少引用 <40> 的计数
+
+垃圾回收机制不仅针对引用计数为0的对象，同样也可以处理循环引用的情况。循环引用指的是，两个对象相互引用，但是没有其他变量引用他们。这种情况下，仅使用引用计数是不够的。Python的垃圾收集器实际上是一个引用计数器和一个循环垃圾收集器。作为引用计数器的补充，垃圾收集器也会留心分配的总量很大（及未通过引用计数销毁的那些）的对象。在这种情况下，解释器会暂停下来，试图清理所有未引用的循环。
+
+### 2.6 实例
+
+析构函数 del ，del在对象销毁的时候被调用，当对象不再被使用时，del方法运行：
+
+    class Point:
+        def __init__(self,x=0,y=0):
+            self.x = x
+            self.y = y
+        def __del__(self):
+            class_name = self.__class__.__name__
+            print(class_name,'销毁')
+    
+    pt1 = Point()
+    pt2 = pt1
+    pt3 = pt1
+    print(id(pt1),id(pt2),id(pt3))  #打印对象的id
+    del pt1
+    del pt2
+    del pt3
+
+执行以上代码的运行结果：
+
+    2235139251336 2235139251336 2235139251336
+    Point 销毁
+
+注意：通常你需要在单独的文件中定义一个类
+
+3.类的继承
+
+面向对象的编程带来的主要好处之一是代码的重用，实现这种重用的方法之一是通过继承机制。
+
+通过继承创建的新类称为子类或者派生类，被继承的类称为基类、父类或者超类。
+
+- 继承语法
+
+    class 派生类名（基类名）
+    	...
+
+python中继承的特点
+
+- 1、如果在子类中需要父类的构造方法就需要显示的调用父类的构造方法，或者不重写父类的构造方法。
+- 2、在调用基类的方法时，需要加上基类的类名前缀，且需要带上self参数变量。区别在于类中的调用普通函数时并不需要带上self参数。
+- 3、Python总是首先查找对应类型的方法，如果它不能在派生类找到对应的方法，它才开始到基类中逐个查找。（先在本类中查找调用的方法，找不到才去基类中找）。
+
+如果在继承元组中有一个以上的类，那么它就被称作“多重继承”。
+
+语法:
+
+子类的声明，与他们的父类类似，继承的子类列表跟在类名之后，如下所示：
+
+    class SubClassName(ParentClass1[,ParentClass2,...]):
+
+    # 实例
+    
+    class Parent:   #定义父类
+        parentAttr = 100
+        def __index__(self):
+            print('调用父类构造函数')
+    
+        def parentMethod(self):
+            print('调用父类方法')
+    
+        def setAttr(self,attr):
+            Parent.parentAttr = attr
+    
+        def getAttr(self):
+            print('父类属性：',Parent.parentAttr)
+    
+    class Child(Parent):   # 定义子类
+        def __init__(self):
+            print('调用子类构造方法')
+    
+        def childMethod(self):
+            print('调用子类方法')
+    
+    c = Child()         #   实例化子类
+    c.childMethod()     #   调用子类的方法
+    c.parentMethod()    #   调用父类的方法
+    c.setAttr(200)      #   再次调用父类的方法 --  设置属性值
+    c.getAttr()         #   再次调用父类的方法 --  获取属性值
+
+以上代码执行结果
+
+    调用子类构造方法
+    调用子类方法
+    调用父类方法
+    父类属性： 200
+
+可以继承多个类
+
+    class A:   #定义A类
+    .......
+    class B:	#定义B类
+    .......
+    
+    class C(A,B)   #继承A类和B类
+
+可以使用issubclass() 或者 isinstance() 方法来检测
+
+- issubclass()  是布尔函数判断一个类是另一个类的子类或者子孙类，语法：issubclass(sub,sup)
+- isinstance(obj,Class)  是布尔函数，如果obj是Class类的实例对象或者是一个Class子类的实例对象则返回true。
+
+### 3.1 Python子类继承父类构造函数说明
+
+如果在子类中需要父类的构造方法就需要显示的调用父类的构造方法，或者不重写父类的构造方法。
+
+子类不重写init，实例化子类时，会自动调用父类定义的init。
+
+    class Father(object):
+        def __init__(self,name):
+            self.name = name
+            print('name：%s'%(self.name))
+    
+        def getName(self):
+            return 'Father ' + self.name
+    
+    class Son(Father):
+        def getName(self):
+            return 'Son ' + self.name
+    
+    if __name__ == '__main__':
+        son = Son('haha')
+        print(son.getName())
+
+输出的结果为：
+
+    name：haha
+    Son haha
+
+如果重写了init时，实例化子类，就不会调用父类已经定义了的init，语法格式如下：
+
+    
+
+输出的结果:
+
+    hi
+    Son haha
+
+如果重写了init时，要继承父类的构造方法，可以使用super关键字
+
+    super(子类,self).__init__(参数1，参数2，.....)
+
+还有一种经典的写法：
+
+    父类名称.__init__(self,参数1，参数2，....)
+
+    class Father(object):
+        def __init__(self,name):
+            self.name = name
+            print('name：%s'%(self.name))
+    
+        def getName(self):
+            return 'Father ' + self.name
+    
+    class Son(Father):
+        def __init__(self,name):
+            super(Son,self).__init__(name)
+            print('hi')
+            self.name = name
+        def getName(self):
+            return 'Son ' + self.name
+    
+    if __name__ == '__main__':
+        son = Son('haha')
+        print(son.getName())
+
+输出的结果为：
+
+    name：haha
+    hi
+    Son haha
+
+### 4.方法重写
+
+如果你父类方法的功能不能满足你的需求，你可以在子类重写你父类的方法：
+
+    class Parent:   # 定义父类
+        def myMethod(self):
+            print('调用子类方法')
+    
+    class Child(Parent):
+        def myMethod(self):
+            print('调用子类方法')
+    
+    c = Child()      #子类实例化
+    c.myMethod()     #子类调用重写方法
+
+执行以上代码的结果
+
+    调用子类方法
+
+#### 4.1 基础重载方法，魔术方法
+
+  序号  	方法，描述&简单的调用                             
+  1   	__init__(self,[,args...])    构造函数，简单的调用方法：obj=className(args)
+  2   	__del__(self)  析构方法，删除一个对象，简单的调用方法：del  obj
+  3   	__repr__(self)   转化为供解释器读取的形式，简单的调用方法：repr(obj)
+  4   	__str__(self)  用于将值转化为适于人阅读的形式，简单的调用方法:   str(obj)
+  5   	__cmp__(self,x)   对象比较，简单的调用方法： cmp(obj,x)
+  6   	__call__() 用于实例的调用                      
+
+#### 4.2 运算符重载
+
+    class Vector:
+        def __init__(self,a,b):
+            self.a = a
+            self.b = b
+    
+        def __str__(self):
+            return 'Vector (%d,%d)'  % (self.a,self.b)
+    
+        def __add__(self, other):
+            return Vector(self.a + other.a ,self.b + other.b)
+    
+    v1 = Vector(2,10)
+    v2 = Vector(5,5)
+    print(v1 + v2)
+
+代码运行的结果为
+
+    Vector (7,15)
+
+#### 4.3 类属性与方法
+
+##### 4.3.1 类的私有属性
+
+__private_attrs: 两个下划线开头，声明该属性为私有，不能在类的外部被使用或直接访问。在类内部的方法中使用时self.__private_attrs。
+
+##### 4.3.2 类的方法
+
+在类的内部，使用def关键字可以为类定义一个方法，与一般函数定义不同，类方法必须包含参数self，且为第一个参数
+
+##### 4.3.3 类的私有方法
+
+
+
+__private_method:两个下划线开头，声明该方法为私有方法，不能在类的外部调用。在类的内部调用self.__private__methods
+
+    class JustCounter:
+        __secretCount = 0  #私有变量
+        publicCount = 0    #公开变量
+    
+        def count(self):
+            self.__secretCount += 1
+            self.publicCount += 1
+            print(self.__secretCount)
+            
+    counter = JustCounter()
+    counter.count()
+    counter.count()
+    print(counter.publicCount)
+    print(counter.__secretCount)    #报错，实例不能访问私有变量
+
+运行的结果：
+
+    1
+    2
+    Traceback (most recent call last):
+    2
+      File "D:/Python WorkSpace/View/1.py", line 292, in <module>
+        print(counter.__secretCount)    #报错，实例不能访问私有变量
+    AttributeError: 'JustCounter' object has no attribute '__secretCount'
+
+
+
+python不允许实例化的类访问私有数据，但你可以使用object.__className.__attrName（对象名._类名__私有属性名）
+
+    class Runoob:
+        __site = 'www.baidu.com'
+    
+    runoob = Runoob()
+    print(runoob._Runoob__site)
+
+运行结果
+
+    www.baidu.com
+
+#### 4.4 单下划线、双下划线、头尾双下划线说明
+
+- foo: 定义的是特殊方法，一般是系统定义名字 ，类似 __init__() 之类的。
+- _foo: 以单下划线开头的表示的是protected类型的变量，即保护类型只能允许其本身与子类进行访问，不能用于__form module import *
+- __foo: 双下划线的表示的是私有类型（private）的变量，只能是允许这个类本身进行访问了。
+
+
+
+### 5. super详解
+
+在python 3中，直接用super().xxx 
+
+#### 5.1 super在单继承中
+
+在单继承中，super就像大家所想的那样，主要是用来调用父类的方法的。
+
+    class A:
+        def __init__(self):
+            self.n = 2
+    
+        def add(self,m):
+            print('self is {0} @A.add'.format(self))
+            self.n += m
+    
+    class B(A):
+        def __init__(self):
+            self.n = 3
+    
+        def add(self,m):
+            print('self is {0} @B.add'.format(self))
+            super().add(m)
+            self.n += 3
+    b = B()
+    b.add(2)
+    print(b.n)
+
+执行的结果为：
+
+    self is <__main__.B object at 0x000002114962D208> @B.add
+    self is <__main__.B object at 0x000002114962D208> @A.add
+    8
+
+这个结果说明了两个问题：
+
+- 1、super().add(m)  确实调用了父类A的add方法。
+- 2、super().add(m) 调用父类方法def add(self,m)时，此时父类中self并不是父类的实例而是子类的实例，所以b.add(2)之后的结果是5，而不是4。
+
+5.2 多继承中的super
+
+在上面的基础上再定义一个Class C 和 Class D
+
+    class A:
+        def __init__(self):
+            self.n = 2
+    
+        def add(self,m):
+            print('self is {0} @A.add'.format(self))
+            self.n += m
+    
+    class B(A):
+        def __init__(self):
+            self.n = 3
+    
+        def add(self,m):
+            print('self is {0} @B.add'.format(self))
+            super().add(m)
+            self.n += 3
+    
+    class C(A):
+        def __init__(self):
+            self.n = 4
+    
+        def add(self,m):
+            print('self is {0} @C.add'.format(self))
+            super().add(m)
+            self.n += 4
+    
+    class D(B,C):
+        def __init__(self):
+            self.n = 5
+    
+        def add(self,m):
+            print('self is {0} @D.add'.format(self))
+            super().add(m)
+            self.n += 5
+    
+    d = D()
+    d.add(2)
+    print(d.n)
+
+执行以上代码输出的结果为：
+
+    self is <__main__.D object at 0x0000013EED107748> @D.add
+    self is <__main__.D object at 0x0000013EED107748> @B.add
+    self is <__main__.D object at 0x0000013EED107748> @C.add
+    self is <__main__.D object at 0x0000013EED107748> @A.add
+    19
+
+为什么会出现这种情况呢？
+
+#### 5.3 super是个类
+
+当我们调用suepr()的时候，实际上是实例化了一个super类。他的确是一个类，既不是关键字也不是函数等其他数据结构：
+
+    In [10]: class A: pass
+    In [11]: print(type(super(A)))
+    <class 'super'>
+
+
+
+在大多数情况下，super包含了两个非常重要的信息：一个是MRO以及MRO中的一个类。当以如下的方式调用super时;
+
+    super(a_type, obj)
+
+MRO 指的是 type(obj) 的 MRO, MRO 中的那个类就是 a_type , 同时 isinstance(obj, a_type) == True 。
+
+当这样调用时:
+
+    super(type1, type2)
+
+MRO指的是type2的MRO，MRO中的那个类就是type1，同时issubclass(type2,type1) == True。
+
+那么， super() 实际上做了啥呢？简单来说就是：提供一个 MRO 以及一个 MRO 中的类 C ， super() 将返回一个从 MRO 中 C 之后的类中查找方法的对象。
+
+也就是说，查找方式时不是像常规方法一样从所有的 MRO 类中查找，而是从 MRO 的 tail 中查找。
+
+举个例子, 有个 MRO:
+
+    [A, B, C, D, E, object]
+
+下面的调用:
+
+    super(C, A).foo()
+
+super 只会从 C 之后查找，即: 只会在 D 或 E 或 object 中查找 foo 方法。
+
+### 5.4 多继承中的super的工作方式
+
+再回到前面的多继承中的问题，为啥输出结果是19呢？mro()可以把类的所有父类打印出来，从下往上的顺序。
+
+- D 的 MRO 是: [D, B, C, A, object] 。 备注: 可以通过 D.mro() (Python 2 使用 D.mro ) 来查看 D 的 MRO信息）
+
+    class A:
+        def __init__(self):
+            self.n = 2
+    
+        def add(self, m):
+            # 第四步
+            # 来自 D.add 中的 super
+            # self == d, self.n == d.n == 5
+            print('self is {0} @A.add'.format(self))
+            self.n += m
+            # d.n == 7
+    
+    
+    class B(A):
+        def __init__(self):
+            self.n = 3
+    
+        def add(self, m):
+            # 第二步
+            # 来自 D.add 中的 super
+            # self == d, self.n == d.n == 5
+            print('self is {0} @B.add'.format(self))
+            # 等价于 suepr(B, self).add(m)
+            # self 的 MRO 是 [D, B, C, A, object]
+            # 从 B 之后的 [C, A, object] 中查找 add 方法
+            super().add(m)
+    
+            # 第六步
+            # d.n = 11
+            self.n += 3
+            # d.n = 14
+    
+    class C(A):
+        def __init__(self):
+            self.n = 4
+    
+        def add(self, m):
+            # 第三步
+            # 来自 B.add 中的 super
+            # self == d, self.n == d.n == 5
+            print('self is {0} @C.add'.format(self))
+            # 等价于 suepr(C, self).add(m)
+            # self 的 MRO 是 [D, B, C, A, object]
+            # 从 C 之后的 [A, object] 中查找 add 方法
+               super().add(m)
+    
+            # 第五步
+            # d.n = 7
+            self.n += 4
+            # d.n = 11
+    
+    
+    class D(B, C):
+        def __init__(self):
+            self.n = 5
+    
+        def add(self, m):
+            # 第一步
+            print('self is {0} @D.add'.format(self))
+            # 等价于 super(D, self).add(m)
+            # self 的 MRO 是 [D, B, C, A, object]
+            # 从 D 之后的 [B, C, A, object] 中查找 add 方法
+            super().add(m)
+    
+            # 第七步
+            # d.n = 14
+            self.n += 5
+            # self.n = 19
+    
+    d = D()
+    d.add(2)
+    print(d.n)
+
+调用过程如下：
+
+    D.mro() == [D, B, C, A, object]
+    d = D()
+    d.n == 5
+    d.add(2)
+    
+    class D(B, C):          class B(A):            class C(A):             class A:
+        def add(self, m):       def add(self, m):      def add(self, m):       def add(self, m):
+            super().add(m)  1.--->  super().add(m) 2.--->  super().add(m)  3.--->  self.n += m
+            self.n += 5   <------6. self.n += 3    <----5. self.n += 4     <----4. <--|
+            (14+5=19)               (11+3=14)              (7+4=11)                (5+2=7)
+
+
+![avatar](/img/Python5.png)
+
