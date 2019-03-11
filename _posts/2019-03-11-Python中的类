@@ -674,6 +674,7 @@ super 只会从 C 之后查找，即: 只会在 D 或 E 或 object 中查找 foo
     d.add(2)
     print(d.n)
 
+
 调用过程如下：
 
     D.mro() == [D, B, C, A, object]
