@@ -3,13 +3,13 @@ layout:     post
 title:      "Hadoop 原理学习（2）HDFS 架构与工作原理"
 date:       2018-04-05 23:01:00
 author:     "Kent"
-header-img: "img/post-bg-2016.jpg"
+header-img: "img/haha.jpg"
 catalog: true
 tags:
     - hadoop, hdfs
 ---
 
-[TOC]
+
 
 # 一、目标
 HDFS 全称 Hadoop 分布式文件系统，其最主要的作用是作为 Hadoop 生态中各系统的存储服务。
