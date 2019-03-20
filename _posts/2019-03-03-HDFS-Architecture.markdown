@@ -4,7 +4,7 @@ title:      "Hadoop 原理学习（2）HDFS 架构与工作原理"
 date:       2018-04-05 23:01:00
 author:     "Kent"
 header-img: "img/haha.jpg"
-catalog: true
+#catalog: true
 tags:
     - hadoop, hdfs
 ---
