@@ -54,11 +54,11 @@
 
 
 
-**process information unavailable **
+**process information unavailable**
 
-真假判断: ps -ef|grep namenode 真正判断进程是否可用
+`真假判断: ps -ef|grep namenode 真正判断进程是否可用`
 
-当出现process information unavailable ,不一定表示不可以用
+**当出现process information unavailable ,不一定表示不可以用**
 
     [root@hadoop001 ~]# jps
     1520 Jps
