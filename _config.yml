@@ -61,14 +61,14 @@ kramdown:
 disqus_username: justdodt
 
 # Gitalk
-gitalk:
-  enable: true    #是否开启Gitalk评论
-  clientID: c5a08d00dad77c843291                            #生成的clientID
-  clientSecret: 311db5d60e758852a9b64bc9f3a4aa2c00205e59     #生成的clientSecret
-  repo: justdodt.github.io    #仓库名称
-  owner: JustDoDT    #github用户名
-  admin: JustDoDT
-  distractionFreeMode: true #是否启用类似FB的阴影遮罩
+# gitalk:
+#   enable: true    #是否开启Gitalk评论
+#   clientID: c5a08d00dad77c843291                            #生成的clientID
+#   clientSecret: 311db5d60e758852a9b64bc9f3a4aa2c00205e59     #生成的clientSecret
+#   repo: justdodt.github.io    #仓库名称
+#   owner: JustDoDT    #github用户名
+#   admin: JustDoDT
+#   distractionFreeMode: true #是否启用类似FB的阴影遮罩
 
 <!-- Gitalk 评论 start  -->
 <!-- Link Gitalk 的支持文件  -->
