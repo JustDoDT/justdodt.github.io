@@ -78,12 +78,12 @@ disqus_username: justdodt
     var gitalk = new Gitalk({
 
     // gitalk的主要参数
-		clientID: c5a08d00dad77c843291,
-		clientSecret: 311db5d60e758852a9b64bc9f3a4aa2c00205e59 ,
-		repo: justdodt.github.io,
-		owner: JustDoDT,
-		admin: JustDoDT,
-		id: https://justdodt.github.io/2019/03/21/sql%E8%AF%AD%E5%8F%A5-%E4%B8%8A,
+    clientID: c5a08d00dad77c843291,
+    clientSecret: 311db5d60e758852a9b64bc9f3a4aa2c00205e59 ,
+    repo: justdodt.github.io,
+    owner: JustDoDT,
+    admin: JustDoDT,
+    id: https://justdodt.github.io/2019/03/21/sql%E8%AF%AD%E5%8F%A5-%E4%B8%8A,
     
     });
     gitalk.render('gitalk-container');
