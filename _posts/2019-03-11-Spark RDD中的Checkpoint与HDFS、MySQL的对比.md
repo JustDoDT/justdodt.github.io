@@ -1,3 +1,16 @@
+---
+layout:     post
+title:      "Spark RDD,MySQL,HDFS,Oracle的checkpoint之间的对比"
+date:       2018-04-05 23:01:00
+author:     "Kent"
+header-img: "img/post-bg-2016.jpg"
+catalog: true
+tags:
+    - hadoop, hdfs
+---
+
+
+
 ### Spark RDD 的checkpoint
 检查点（本质是通过将RDD写入Disk做检查点）是为了通过lineage（血统）做容错的辅助，lineage过长会造成容错成本过高，这样就不如在中间阶段做检查点容错，如果之后有节点出现问题而丢失数据，从做检查点的RDD开始重做LIneage，就会减少开销。
 
