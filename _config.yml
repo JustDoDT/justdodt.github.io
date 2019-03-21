@@ -83,7 +83,7 @@ disqus_username: justdodt
 		repo: justdodt.github.io,
 		owner: JustDoDT,
 		admin: JustDoDT,
-		id: '页面的唯一标识，gitalk会根据这个标识自动创建的issue的标签',
+		id: https://justdodt.github.io/2019/03/21/sql%E8%AF%AD%E5%8F%A5-%E4%B8%8A,
     
     });
     gitalk.render('gitalk-container');
