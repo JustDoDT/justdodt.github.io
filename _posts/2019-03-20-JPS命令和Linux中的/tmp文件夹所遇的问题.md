@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      "JPS命令和Linux中的/tmp文件夹所遇的问题"
-date:       2019-03-20 23:01:00
+date:       2018-03-20 23:01:00
 author:     "JustDoDT"
 #header-img: "img/post-bg-2016.jpg"
 #catalog: true
