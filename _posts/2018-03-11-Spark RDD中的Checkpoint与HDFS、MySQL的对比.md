@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      "Spark RDD,MySQL,HDFS,Oracle的checkpoint之间的对比"
-date:       2019-03-11 23:01:00
+date:       2018-03-11 23:01:00
 author:     "JustDoDT"
 #header-img: "img/post-bg-2016.jpg"
 catalog: true
