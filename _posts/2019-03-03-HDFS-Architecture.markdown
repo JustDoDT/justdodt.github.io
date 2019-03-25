@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      "HDFS 架构与工作原理"
-date:       2019-03-03 23:01:00
+date:       2018-03-03 23:01:00
 author:     "JustDoDT"
 header-img: "img/haha.jpg"
 catalog: true
