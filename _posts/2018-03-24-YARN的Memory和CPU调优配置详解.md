@@ -320,7 +320,7 @@ YARN中目前的CPU被划分成虚拟CPU（CPU virtual Core），这里的虚拟
 
 
 
-`转:`[c-code](http://blog.javachen.com/2015/06/05/yarn-memory-and-cpu-configuration.html?utm_source=tuicool&utm_medium=referral/c-code)
+`转:`(http://blog.javachen.com/2015/06/05/yarn-memory-and-cpu-configuration.html?utm_source=tuicool&utm_medium=referral)
 
 
 
