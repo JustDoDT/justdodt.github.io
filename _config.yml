@@ -70,7 +70,7 @@ disqus_username: justdodt
 #   admin: JustDoDT
 #   distractionFreeMode: true #是否启用类似FB的阴影遮罩
 
-<!-- Gitalk 评论 start  -->
+#<!-- Gitalk 评论 start  -->
 <!-- Link Gitalk 的支持文件  -->
 <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
 <script src="https://unpkg.com/gitalk@latest/dist/gitalk.min.js"></script> 
