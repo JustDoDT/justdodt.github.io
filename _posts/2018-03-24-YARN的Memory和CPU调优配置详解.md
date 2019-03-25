@@ -65,17 +65,17 @@ RAM-per-container = max(MIN_CONTAINER_SIZE, (Total Available RAM) / containers))
 
 通过上面的计算，YARN以及MAPREDUCE可以这样配置：
 
-  |配置文件|            配置设置|                            默认值|      计算值|
+  |配置文件|            配置设置|                                       默认值|      计算值|
   |:--|:--|
-  |yarn-site.xml        |yarn.nodemanager.resource.memory-mb 	    | 8192 MB   | 	= containers * RAM-per-container |
-  |yarn-site.xml        |	yarn.scheduler.minimum-allocation-mb	| 1024MB    |	= RAM-per-container              |
-  |yarn-site.xml        |	yarn.scheduler.maximum-allocation-mb	| 8192 MB   |	= containers * RAM-per-container |
-  |yarn-site.xml (check)|	yarn.app.mapreduce.am.resource.mb   	| 1536 MB   |	= 2 * RAM-per-container          |
-  |yarn-site.xml (check)|	yarn.app.mapreduce.am.command-opts  	| -Xmx1024m |	= 0.8 * 2 * RAM-per-container    |
-  |mapred-site.xml      |	mapreduce.map.memory.mb             	| 1024 MB   |	= RAM-per-container              |
-  |mapred-site.xml      |	mapreduce.reduce.memory.mb              | 1024 MB   |	= 2 * RAM-per-container          |
-  |mapred-site.xml      |	mapreduce.map.java.opts                 |           |	= 0.8 * RAM-per-container        |
-  |mapred-site.xml      |	mapreduce.reduce.java.opts          	|           |	= 0.8 * 2 * RAM-per-container    |
+  |yarn-site.xml        |   yarn.nodemanager.resource.memory-mb 	|  8192 MB    | 	= containers * RAM-per-container |
+  |yarn-site.xml        |	yarn.scheduler.minimum-allocation-mb	|  1024MB     |	= RAM-per-container              |
+  |yarn-site.xml        |	yarn.scheduler.maximum-allocation-mb	|  8192 MB    |	= containers * RAM-per-container |
+  |yarn-site.xml (check)|	yarn.app.mapreduce.am.resource.mb   	|  1536 MB    |	= 2 * RAM-per-container          |
+  |yarn-site.xml (check)|	yarn.app.mapreduce.am.command-opts  	|  -Xmx1024m  |	= 0.8 * 2 * RAM-per-container    |
+  |mapred-site.xml      |	mapreduce.map.memory.mb             	|  1024 MB    |	= RAM-per-container              |
+  |mapred-site.xml      |	mapreduce.reduce.memory.mb              |  1024 MB    |	= 2 * RAM-per-container          |
+  |mapred-site.xml      |	mapreduce.map.java.opts                 |             |	= 0.8 * RAM-per-container        |
+  |mapred-site.xml      |	mapreduce.reduce.java.opts          	|             |	= 0.8 * 2 * RAM-per-container    |
 
 举个例子：对于128G内存、32核CPU的机器，挂载了7个磁盘，根据上面的说明，系统保留内存为24G，不适应HBase情况下，系统剩余可用内存为104G，计算containers值如下：
 
