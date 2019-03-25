@@ -19,7 +19,7 @@ YARN作为一个资源调度器，应该考虑到集群里面每一台机子的�
 
 ### 内存配置
 
-关于内存相关的配置可以参考hortonwork公司的文档Determine HDP Memory Configuration Settings来配置你的集群。
+关于内存相关的配置可以参考hortonwork公司的文档 <https://docs.hortonworks.com/HDPDocuments/HDP2/HDP-2.1.1/bk_installing_manually_book/content/rpm-chap1-11.html> 来配置你的集群。
 
 YARN以及MAPREDUCE所有可用的内存资源应该要除去系统运行需要的以及其他的hadoop的一些程序，总共保留的内存=系统内存+HBASE内存。
 
