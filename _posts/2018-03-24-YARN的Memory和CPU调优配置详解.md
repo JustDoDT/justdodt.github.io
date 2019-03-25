@@ -65,15 +65,15 @@ RAM-per-container = max(MIN_CONTAINER_SIZE, (Total Available RAM) / containers))
 
 通过上面的计算，YARN以及MAPREDUCE可以这样配置：
 
-  |配置文件   |            |  	配置设置   |                            | 	默认值|      |	计算值   |
+  |配置文件|            配置设置|                            默认值|      计算值|
   |:--|:--|
-  |yarn-site.xml        |yarn.nodemanager.resource.memory-mb 	   |8192 MB | 	= containers * RAM-per-container|
+  |yarn-site.xml        |yarn.nodemanager.resource.memory-mb 	      |8192 MB | 	= containers * RAM-per-container|
   |yarn-site.xml        |	yarn.scheduler.minimum-allocation-mb	  |1024MB   |	= RAM-per-container             |
   |yarn-site.xml        |	yarn.scheduler.maximum-allocation-mb	  |8192 MB  |	= containers * RAM-per-container|
   |yarn-site.xml (check)|	yarn.app.mapreduce.am.resource.mb   	  |1536 MB  |	= 2 * RAM-per-container         |
   |yarn-site.xml (check)|	yarn.app.mapreduce.am.command-opts  	  |-Xmx1024m|	= 0.8 * 2 * RAM-per-container   |
   |mapred-site.xml      |	mapreduce.map.memory.mb             	  |1024 MB  |	= RAM-per-container             |
-  |mapred-site.xml      |	mapreduce.reduce.memory.mb             |1024 MB  |	= 2 * RAM-per-container         |
+  |mapred-site.xml      |	mapreduce.reduce.memory.mb                |1024 MB  |	= 2 * RAM-per-container         |
   |mapred-site.xml      |	mapreduce.map.java.opts             	  |       |	= 0.8 * RAM-per-container       |
   |mapred-site.xml      |	mapreduce.reduce.java.opts          	  |      |	= 0.8 * 2 * RAM-per-container   |
 
@@ -250,7 +250,7 @@ RAM-per-container = max (2, (124-24)/13) = max (2, 8) = 8
 
 这样的话，每个container内存为8G，似乎有点多，我更愿意根据集群使用情况任务将其调整为2G内存，则集群中下面的参数配置值如下：
 
-  |配置文件 |            |   	配置设置  |                          |   	计算值       |        
+  |配置文件|            配置设置|                          计算值|        
   |:--|:--|
   |yarn-site.xml        |	yarn.nodemanager.resource.memory-mb 	|= 52 * 2 =104 G   | 
   |yarn-site.xml        |	yarn.scheduler.minimum-allocation-mb	|= 2G              |
@@ -320,7 +320,7 @@ YARN中目前的CPU被划分成虚拟CPU（CPU virtual Core），这里的虚拟
 
 
 
-`转:`http://blog.javachen.com/2015/06/05/yarn-memory-and-cpu-configuration.html?utm_source=tuicool&utm_medium=referral
+`转:`[c-code](http://blog.javachen.com/2015/06/05/yarn-memory-and-cpu-configuration.html?utm_source=tuicool&utm_medium=referral/c-code)
 
 
 
