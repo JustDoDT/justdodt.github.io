@@ -67,15 +67,15 @@ RAM-per-container = max(MIN_CONTAINER_SIZE, (Total Available RAM) / containers))
 
   |配置文件|            配置设置|                            默认值|      计算值|
   |:--|:--|
-  |yarn-site.xml        |yarn.nodemanager.resource.memory-mb 	    |8192 MB   | 	= containers * RAM-per-container|
-  |yarn-site.xml        |	yarn.scheduler.minimum-allocation-mb	|1024MB    |	= RAM-per-container             |
-  |yarn-site.xml        |	yarn.scheduler.maximum-allocation-mb	|8192 MB   |	= containers * RAM-per-container|
-  |yarn-site.xml (check)|	yarn.app.mapreduce.am.resource.mb   	|1536 MB   |	= 2 * RAM-per-container         |
-  |yarn-site.xml (check)|	yarn.app.mapreduce.am.command-opts  	|-Xmx1024m |	= 0.8 * 2 * RAM-per-container   |
-  |mapred-site.xml      |	mapreduce.map.memory.mb             	|1024 MB   |	= RAM-per-container             |
-  |mapred-site.xml      |	mapreduce.reduce.memory.mb              |1024 MB   |	= 2 * RAM-per-container         |
-  |mapred-site.xml      |	mapreduce.map.java.opts                 |        |	= 0.8 * RAM-per-container       |
-  |mapred-site.xml      |	mapreduce.reduce.java.opts          	|       |	= 0.8 * 2 * RAM-per-container   |
+  |yarn-site.xml        |yarn.nodemanager.resource.memory-mb 	    | 8192 MB   | 	= containers * RAM-per-container |
+  |yarn-site.xml        |	yarn.scheduler.minimum-allocation-mb	| 1024MB    |	= RAM-per-container              |
+  |yarn-site.xml        |	yarn.scheduler.maximum-allocation-mb	| 8192 MB   |	= containers * RAM-per-container |
+  |yarn-site.xml (check)|	yarn.app.mapreduce.am.resource.mb   	| 1536 MB   |	= 2 * RAM-per-container          |
+  |yarn-site.xml (check)|	yarn.app.mapreduce.am.command-opts  	| -Xmx1024m |	= 0.8 * 2 * RAM-per-container    |
+  |mapred-site.xml      |	mapreduce.map.memory.mb             	| 1024 MB   |	= RAM-per-container              |
+  |mapred-site.xml      |	mapreduce.reduce.memory.mb              | 1024 MB   |	= 2 * RAM-per-container          |
+  |mapred-site.xml      |	mapreduce.map.java.opts                 |           |	= 0.8 * RAM-per-container        |
+  |mapred-site.xml      |	mapreduce.reduce.java.opts          	|           |	= 0.8 * 2 * RAM-per-container    |
 
 举个例子：对于128G内存、32核CPU的机器，挂载了7个磁盘，根据上面的说明，系统保留内存为24G，不适应HBase情况下，系统剩余可用内存为104G，计算containers值如下：
 
@@ -318,6 +318,10 @@ YARN中目前的CPU被划分成虚拟CPU（CPU virtual Core），这里的虚拟
           <value>124</value>
       </property>
 
+
+
+### 注意
+一定要注意Yarn的内存和CPU两个维度来考虑，Yarn的配置由内存和CPU的最小值决定，不能只考虑其中一种，一定要将二者结合起来考虑。
 
 
 `转:`<http://blog.javachen.com/2015/06/05/yarn-memory-and-cpu-configuration.html?utm_source=tuicool&utm_medium=referral>
