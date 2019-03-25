@@ -1,8 +1,13 @@
-
-
-
-
-YARN的Memory和CPU调优配置详解
+---
+layout:     post
+title:      "YARN的Memory和CPU调优配置详解"
+date:       2018-03-24 23:01:00
+author:     "JustDoDT"
+header-img: "img/haha.jpg"
+catalog: true
+tags:
+    - hadoop,yarn
+---
 
 
 
@@ -47,11 +52,12 @@ containers = min (2CORES, 1.8DISKS, (Total available RAM) / MIN_CONTAINER_SIZE)
 - Total available RAM为机器总内存
 - MIN_CONTAINER_SIZE是指container最小的容量大小，这需要根据具体情况去设置，可以参考下面的表格：
 
-  每台机子可用的RAM	container最小值
-  小于4GB     	256MB       
-  4GB到8GB之间 	512MB       
-  8GB到24GB之间	1024MB      
-  大于24GB    	2048MB      
+  |每台机子可用的RAM|	container最小值|
+  |--|--|
+  |小于4GB|     	256MB|       
+  |4GB到8GB之间| 	512MB  |     
+  |8GB到24GB之间	|1024MB  |    
+  |大于24GB |   	2048MB  |    
 
 每个container的平均使用内存大小计算方式为：
 
@@ -59,16 +65,17 @@ RAM-per-container = max(MIN_CONTAINER_SIZE, (Total Available RAM) / containers))
 
 通过上面的计算，YARN以及MAPREDUCE可以这样配置：
 
-  配置文件                 	配置设置                                	默认值      	计算值                             
-  yarn-site.xml        	yarn.nodemanager.resource.memory-mb 	8192 MB  	= containers * RAM-per-container
-  yarn-site.xml        	yarn.scheduler.minimum-allocation-mb	1024MB   	= RAM-per-container             
-  yarn-site.xml        	yarn.scheduler.maximum-allocation-mb	8192 MB  	= containers * RAM-per-container
-  yarn-site.xml (check)	yarn.app.mapreduce.am.resource.mb   	1536 MB  	= 2 * RAM-per-container         
-  yarn-site.xml (check)	yarn.app.mapreduce.am.command-opts  	-Xmx1024m	= 0.8 * 2 * RAM-per-container   
-  mapred-site.xml      	mapreduce.map.memory.mb             	1024 MB  	= RAM-per-container             
-  mapred-site.xml      	mapreduce.reduce.memory.mb          	1024 MB  	= 2 * RAM-per-container         
-  mapred-site.xml      	mapreduce.map.java.opts             	         	= 0.8 * RAM-per-container       
-  mapred-site.xml      	mapreduce.reduce.java.opts          	         	= 0.8 * 2 * RAM-per-container   
+  |配置文件   |            |  	配置设置   |                            | 	默认值|      |	计算值   |
+  |:--|:--|:--|
+  |yarn-site.xml        |yarn.nodemanager.resource.memory-mb 	   |8192 MB | 	= containers * RAM-per-container|
+  |yarn-site.xml        |	yarn.scheduler.minimum-allocation-mb	  |1024MB   |	= RAM-per-container             |
+  |yarn-site.xml        |	yarn.scheduler.maximum-allocation-mb	  |8192 MB  |	= containers * RAM-per-container|
+  |yarn-site.xml (check)|	yarn.app.mapreduce.am.resource.mb   	  |1536 MB  |	= 2 * RAM-per-container         |
+  |yarn-site.xml (check)|	yarn.app.mapreduce.am.command-opts  	  |-Xmx1024m|	= 0.8 * 2 * RAM-per-container   |
+  |mapred-site.xml      |	mapreduce.map.memory.mb             	  |1024 MB  |	= RAM-per-container             |
+  |mapred-site.xml      |	mapreduce.reduce.memory.mb             |1024 MB  |	= 2 * RAM-per-container         |
+  |mapred-site.xml      |	mapreduce.map.java.opts             	  |       |	= 0.8 * RAM-per-container       |
+  |mapred-site.xml      |	mapreduce.reduce.java.opts          	  |      |	= 0.8 * 2 * RAM-per-container   |
 
 举个例子：对于128G内存、32核CPU的机器，挂载了7个磁盘，根据上面的说明，系统保留内存为24G，不适应HBase情况下，系统剩余可用内存为104G，计算containers值如下：
 
@@ -243,16 +250,17 @@ RAM-per-container = max (2, (124-24)/13) = max (2, 8) = 8
 
 这样的话，每个container内存为8G，似乎有点多，我更愿意根据集群使用情况任务将其调整为2G内存，则集群中下面的参数配置值如下：
 
-  配置文件                 	配置设置                                	计算值               
-  yarn-site.xml        	yarn.nodemanager.resource.memory-mb 	= 52 * 2 =104 G   
-  yarn-site.xml        	yarn.scheduler.minimum-allocation-mb	= 2G              
-  yarn-site.xml        	yarn.scheduler.maximum-allocation-mb	= 52 * 2 = 104G   
-  yarn-site.xml (check)	yarn.app.mapreduce.am.resource.mb   	= 2 * 2=4G        
-  yarn-site.xml (check)	yarn.app.mapreduce.am.command-opts  	= 0.8 * 2 * 2=3.2G
-  mapred-site.xml      	mapreduce.map.memory.mb             	= 2G              
-  mapred-site.xml      	mapreduce.reduce.memory.mb          	= 2 * 2=4G        
-  mapred-site.xml      	mapreduce.map.java.opts             	= 0.8 * 2=1.6G    
-  mapred-site.xml      	mapreduce.reduce.java.opts          	= 0.8 * 2 * 2=3.2G
+  |配置文件 |             |   	配置设置  |                           |   	计算值    |        
+  |:--|:--|
+  |yarn-site.xml        |	yarn.nodemanager.resource.memory-mb 	|= 52 * 2 =104 G   | 
+  |yarn-site.xml        |	yarn.scheduler.minimum-allocation-mb	|= 2G              |
+  |yarn-site.xml        |	yarn.scheduler.maximum-allocation-mb	|= 52 * 2 = 104G   |
+  |yarn-site.xml (check)|	yarn.app.mapreduce.am.resource.mb   	|= 2 * 2=4G        |
+  |yarn-site.xml (check)|	yarn.app.mapreduce.am.command-opts  	|= 0.8 * 2 * 2=3.2G|
+  |mapred-site.xml      |	mapreduce.map.memory.mb             	|= 2G              |
+  |mapred-site.xml      |	mapreduce.reduce.memory.mb          	|= 2 * 2=4G        |
+  |mapred-site.xml      |	mapreduce.map.java.opts             	|= 0.8 * 2=1.6G    |
+  |mapred-site.xml      |	mapreduce.reduce.java.opts          	|= 0.8 * 2 * 2=3.2G|
 
 对应的xml配置为：
 
