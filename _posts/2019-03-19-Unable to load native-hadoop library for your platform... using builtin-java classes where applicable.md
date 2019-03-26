@@ -52,5 +52,5 @@ export HADOOP_OPTS="-Djava.library.path=${HADOOP_HOME}/lib/native"
     lsr: DEPRECATED: Please use 'ls -R' instead.
     [hadoop@hadoop001 hadoop]$ 
 
-参考：https://www.cnblogs.com/kevinq/p/5103653.html
+参考：[https://www.cnblogs.com/kevinq/p/5103653.html](https://www.cnblogs.com/kevinq/p/5103653.html)
 
