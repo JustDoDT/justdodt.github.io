@@ -145,7 +145,7 @@ ApplicationMaster查询应用程序的当前运行状态。
 
 
 
-当用户向YARN中提交一个应用程序后，YARN将分两个阶段运行该应用程序：
+**当用户向YARN中提交一个应用程序后，YARN将分两个阶段运行该应用程序：**
 
 **a.**  第一个阶段是启动ApplicationMaster；
 
