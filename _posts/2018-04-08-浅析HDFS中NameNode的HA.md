@@ -123,7 +123,7 @@ Namenode(包括 YARN ResourceManager) 的主备选举是通过 ActiveStandbyElec
 
 不管创建/hadoop-ha/${dfs.nameservices}/ActiveStandbyElectorLock 节点是否成功，ActiveStandbyElector 随后都会向 Zookeeper 注册一个 Watcher 来监听这个节点的状态变化事件，ActiveStandbyElector 主要关注这个节点的 NodeDeleted 事件。
 
-自动触发主备选举
+#### 自动触发主备选举
 
 如果 Active NameNode 对应的 HealthMonitor 检测到 NameNode 的状态异常时， ZKFailoverController 会主动删除当前在 Zookeeper 上建立的临时节点/hadoop-ha/${dfs.nameservices}/ActiveStandbyElectorLock，这样处于 Standby 状态的 NameNode 的 ActiveStandbyElector 注册的监听器就会收到这个节点的 NodeDeleted 事件。收到这个事件之后，会马上再次进入到创建/hadoop-ha/${dfs.nameservices}/ActiveStandbyElectorLock 节点的流程，如果创建成功，这个本来处于 Standby 状态的 NameNode 就选举为主 NameNode 并随后开始切换为 Active 状态。
 
@@ -172,7 +172,7 @@ ZKFailoverController 在创建 HealthMonitor 和 ActiveStandbyElector 的同时�
 
 过去几年中 Hadoop 社区涌现过很多的 NameNode 共享存储方案，比如 shared NAS+NFS、BookKeeper、BackupNode 和 QJM(Quorum Journal Manager) 等等。目前社区已经把由 Clouderea 公司实现的基于 QJM 的方案合并到 HDFS 的 trunk 之中并且作为默认的共享存储实现，本部分只针对基于 QJM 的共享存储方案的内部实现原理进行分析。为了理解 QJM 的设计和实现，首先要对 NameNode 的元数据存储结构有所了解。
 
-### NameNode 的元数据存储概述
+#### NameNode 的元数据存储概述
 
 一个典型的 NameNode 的元数据存储目录结构如图 3 所示 (图片来源于参考文献 [4])，这里主要关注其中的 EditLog 文件和 FSImage 文件：
 
@@ -214,7 +214,7 @@ NameNode 会定期对内存中的文件系统镜像进行 checkpoint 操作，�
 
 下面对基于 QJM 的共享存储系统的两个关键性问题同步数据和恢复数据进行详细分析。
 
-### 基于 QJM 的共享存储系统的数据同步机制分析
+#### 基于 QJM 的共享存储系统的数据同步机制分析
 
 Active NameNode 和 StandbyNameNode 使用 JouranlNode 集群来进行数据同步的过程如图 5 所示，Active NameNode 首先把 EditLog 提交到 JournalNode 集群，然后 Standby NameNode 再从 JournalNode 集群定时同步 EditLog：
 
@@ -238,7 +238,7 @@ Active NameNode 和 StandbyNameNode 使用 JouranlNode 集群来进行数据同�
 
 从上面描述的过程可以看出，虽然 Active NameNode 向 JournalNode 集群提交 EditLog 是同步的，但 Standby NameNode 采用的是定时从 JournalNode 集群上同步 EditLog 的方式，那么 Standby NameNode 内存中文件系统镜像有很大的可能是落后于 Active NameNode 的，所以 Standby NameNode 在转换为 Active NameNode 的时候需要把落后的 EditLog 补上来。
 
-### 基于 QJM 的共享存储系统的数据恢复机制分析
+#### 基于 QJM 的共享存储系统的数据恢复机制分析
 
 处于 Standby 状态的 NameNode 转换为 Active 状态的时候，有可能上一个 Active NameNode 发生了异常退出，那么 JournalNode 集群中各个 JournalNode 上的 EditLog 就可能会处于不一致的状态，所以首先要做的事情就是让 JournalNode 集群中各个节点上的 EditLog 恢复为一致。另外如前所述，当前处于 Standby 状态的 NameNode 的内存中的文件系统镜像有很大的可能是落后于旧的 Active NameNode 的，所以在 JournalNode 集群中各个节点上的 EditLog 达成一致之后，接下来要做的事情就是从 JournalNode 集群上补齐落后的 EditLog。只有在这两步完成之后，当前新的 Active NameNode 才能安全地对外提供服务。
 
@@ -259,11 +259,11 @@ Epoch 是一个单调递增的整数，用来标识每一次 Active NameNode 的
 
 在生成新的 Epoch 之后，每次 NameNode 在向 JournalNode 集群提交 EditLog 的时候，都会把这个 Epoch 作为参数传递过去。每个 JournalNode 会比较传过来的 Epoch 和它自己保存的 lastPromisedEpoch 的大小，如果传过来的 epoch 的值比它自己保存的 lastPromisedEpoch 小的话，那么这次写相关操作会被拒绝。一旦大多数 JournalNode 都拒绝了这次写操作，那么这次写操作就失败了。如果原来的 Active NameNode 恢复正常之后再向 JournalNode 写 EditLog，那么因为它的 Epoch 肯定比新生成的 Epoch 小，并且大多数的 JournalNode 都接受了这个新生成的 Epoch，所以拒绝写入的 JournalNode 数目至少是大多数，这样原来的 Active NameNode 写 EditLog 就肯定会失败，失败之后这个 NameNode 进程会直接退出，这样就实现了对原来的 Active NameNode 的隔离了。
 
-选择需要数据恢复的 EditLog Segment 的 id
+#### 选择需要数据恢复的 EditLog Segment 的 id
 
 需要恢复的 Edit Log 只可能是各个 JournalNode 上的最后一个 Edit Log Segment，如前所述，JournalNode 在处理完 newEpoch RPC 请求之后，会向 NameNode 返回它自己的本地磁盘上最新的一个 EditLog Segment 的起始事务 id，这个起始事务 id 实际上也作为这个 EditLog Segment 的 id。NameNode 会在所有这些 id 之中选择一个最大的 id 作为要进行数据恢复的 EditLog Segment 的 id。
 
-向 JournalNode 集群发送 prepareRecovery RPC 请求
+#### 向 JournalNode 集群发送 prepareRecovery RPC 请求
 
 NameNode 接下来向 JournalNode 集群发送 prepareRecovery RPC 请求，请求的参数就是选出的 EditLog Segment 的 id。JournalNode 收到请求后返回本地磁盘上这个 Segment 的起始事务 id、结束事务 id 和状态 (in-progress 或 finalized)。
 
@@ -275,7 +275,7 @@ NameNode 接下来向 JournalNode 集群发送 prepareRecovery RPC 请求，请�
 
 这一步对应于 Paxos 算法的 Phase 2a 和 Phase 2b(参见参考文献 [3]) 两步。Paxos 算法的 Phase2 是 accept 阶段，这也与方法名 acceptRecovery 相对应。只要大多数 JournalNode 的 acceptRecovery RPC 调用成功返回，NameNode 就认为成功。
 
-向 JournalNode 集群发送 finalizeLogSegment RPC 请求，数据恢复完成
+#### 向 JournalNode 集群发送 finalizeLogSegment RPC 请求，数据恢复完成
 
 上一步执行完成之后，NameNode 确认大多数 JournalNode 上的 EditLog Segment 已经从基准数据源进行了同步。接下来，NameNode 向 JournalNode 集群发送 finalizeLogSegment RPC 请求，JournalNode 接收到请求之后，将对应的 EditLog Segment 从 in-progress 状态转换为 finalized 状态，实际上就是将文件名从 edits_inprogress${startTxid} 重命名为 edits{startTxid}-{endTxid}，见“NameNode 的元数据存储概述”一节的描述。
 
@@ -296,29 +296,29 @@ NameNode 接下来向 JournalNode 集群发送 prepareRecovery RPC 请求，请�
 
 事实上不光本文描述的基于 QJM 的共享存储方案无法保证数据的绝对一致，大家通常认为的一致性程度非常高的 Zookeeper 也会发生类似的情况，这也从侧面说明了要实现一个数据绝对一致的分布式存储系统的确非常困难。
 
-NameNode 在进行状态转换时对共享存储的处理
+### NameNode 在进行状态转换时对共享存储的处理
 
 下面对 NameNode 在进行状态转换的过程中对共享存储的处理进行描述，使得大家对基于 QJM 的共享存储方案有一个完整的了解，同时也作为本部分的总结。
 
-NameNode 初始化启动，进入 Standby 状态
+#### NameNode 初始化启动，进入 Standby 状态
 
 在 NameNode 以 HA 模式启动的时候，NameNode 会认为自己处于 Standby 模式，在 NameNode 的构造函数中会加载 FSImage 文件和 EditLog Segment 文件来恢复自己的内存文件系统镜像。在加载 EditLog Segment 的时候，调用 FSEditLog 类的 initSharedJournalsForRead 方法来创建只包含了在 JournalNode 集群上的共享目录的 JournalSet，也就是说，这个时候只会从 JournalNode 集群之中加载 EditLog，而不会加载本地磁盘上的 EditLog。另外值得注意的是，加载的 EditLog Segment 只是处于 finalized 状态的 EditLog Segment，而处于 in-progress 状态的 Segment 需要后续在切换为 Active 状态的时候，进行一次数据恢复过程，将 in-progress 状态的 Segment 转换为 finalized 状态的 Segment 之后再进行读取。
 
 加载完 FSImage 文件和共享目录上的 EditLog Segment 文件之后，NameNode 会启动 EditLogTailer 线程和 StandbyCheckpointer 线程，正式进入 Standby 模式。如前所述，EditLogTailer 线程的作用是定时从 JournalNode 集群上同步 EditLog。而 StandbyCheckpointer 线程的作用其实是为了替代 Hadoop 1.x 版本之中的 Secondary NameNode 的功能，StandbyCheckpointer 线程会在 Standby NameNode 节点上定期进行 Checkpoint，将 Checkpoint 之后的 FSImage 文件上传到 Active NameNode 节点。
 
-NameNode 从 Standby 状态切换为 Active 状态
+#### NameNode 从 Standby 状态切换为 Active 状态
 
 当 NameNode 从 Standby 状态切换为 Active 状态的时候，首先需要做的就是停止它在 Standby 状态的时候启动的线程和相关的服务，包括上面提到的 EditLogTailer 线程和 StandbyCheckpointer 线程，然后关闭用于读取 JournalNode 集群的共享目录上的 EditLog 的 JournalSet，接下来会调用 FSEditLog 的 initJournalSetForWrite 方法重新打开 JournalSet。不同的是，这个 JournalSet 内部同时包含了本地磁盘目录和 JournalNode 集群上的共享目录。这些工作完成之后，就开始执行“基于 QJM 的共享存储系统的数据恢复机制分析”一节所描述的流程，调用 FSEditLog 类的 recoverUnclosedStreams 方法让 JournalNode 集群中各个节点上的 EditLog 达成一致。然后调用 EditLogTailer 类的 catchupDuringFailover 方法从 JournalNode 集群上补齐落后的 EditLog。最后打开一个新的 EditLog Segment 用于新写入数据，同时启动 Active NameNode 所需要的线程和服务。
 
-NameNode 从 Active 状态切换为 Standby 状态
+#### NameNode 从 Active 状态切换为 Standby 状态
 
 当 NameNode 从 Active 状态切换为 Standby 状态的时候，首先需要做的就是停止它在 Active 状态的时候启动的线程和服务，然后关闭用于读取本地磁盘目录和 JournalNode 集群上的共享目录的 EditLog 的 JournalSet。接下来会调用 FSEditLog 的 initSharedJournalsForRead 方法重新打开用于读取 JournalNode 集群上的共享目录的 JournalSet。这些工作完成之后，就会启动 EditLogTailer 线程和 StandbyCheckpointer 线程，EditLogTailer 线程会定时从 JournalNode 集群上同步 Edit Log。
 
-NameNode 高可用运维中的注意事项
+### NameNode 高可用运维中的注意事项
 
 本节结合笔者的实践，从初始化部署和日常运维两个方面介绍一些在 NameNode 高可用运维中的注意事项。
 
-初始化部署
+#### 初始化部署
 
 如果在开始部署 Hadoop 集群的时候就启用 NameNode 的高可用的话，那么相对会比较容易。但是如果在采用传统的单 NameNode 的架构运行了一段时间之后，升级为 NameNode 的高可用架构的话，就要特别注意在升级的时候需要按照以下的步骤进行操作：
 
@@ -330,7 +330,7 @@ NameNode 高可用运维中的注意事项
 6. 启动新增的 NameNode 节点，这通过脚本命令 hadoop-daemon.sh start namenode 完成。
 7. 在这两个 NameNode 上启动 zkfc(ZKFailoverController) 进程，谁通过 Zookeeper 选主成功，谁就是主 NameNode，另一个为备 NameNode。这通过脚本命令 hadoop-daemon.sh start zkfc 完成。
 
-日常维护
+#### 日常维护
 
 笔者在日常的维护之中主要遇到过下面两种问题：
 
@@ -340,7 +340,7 @@ Zookeeper 过于敏感：Hadoop 的配置项中 Zookeeper 的 session timeout �
 
 
 
-相关主题
+#### 相关主题
 
 - [1]Sanjay Radia, Suresh Srinivas. High Availability for the HDFS Namenode.
 - [2]Todd Lipcon . Quorum-Journal Design.
