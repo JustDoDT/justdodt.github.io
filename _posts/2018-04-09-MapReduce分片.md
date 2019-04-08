@@ -1,7 +1,7 @@
 ---
 layout:     post
-title:      "浅析HDFS中NameNode的HA"
-date:       2018-04-08 23:01:00
+title:      "MapReduce分片"
+date:       2018-04-09 23:01:00
 author:     "JustDoDT"
 header-img: "img/haha.jpg"
 catalog: true
@@ -9,9 +9,10 @@ tags:
     - hadoop, mapreduce
 ---
 
-
+### 概述
 在进行map计算之前，map会根据输入文件计算输入分片（input split）,每个输入分片（input split）针对一个map任务，输入分片（input split）存储的并非数据本身，而是一个分片长度和一个记录数据的位置的数组。
 
+### 问题
 Hadoop 2.x默认的block大小是128MB，Hadoop 1.x默认的block大小是64MB，可以在hdfs-site.xml中设置dfs.block.size，注意单位是byte。
 
 分片大小范围可以在mapred-site.xml中设置，mapred.min.split.size mapred.max.split.size，minSplitSize大小默认为1B，maxSplitSize大小默认为Long.MAX_VALUE = 9223372036854775807
