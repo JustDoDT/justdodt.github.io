@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      "HDFS出现Unable to load native-hadoop library for your platform... using builtin-java classes where applicable"
-date:       2019-03-19 23:01:00
+date:       2018-03-19 23:01:00
 author:     "JustDoDT"
 header-img: "img/haha.jpg"
 #catalog: true
@@ -13,8 +13,8 @@ tags:
 
     [hadoop@hadoop001 hadoop]$ hdfs  dfs -lsr /d6_hive
     lsr: DEPRECATED: Please use 'ls -R' instead.
-    19/03/19 07:46:21 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
-    drwxr-xr-x   - hadoop supergroup          0 2019-03-19 07:15 /d6_hive/test
+    18/03/19 07:46:21 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+    drwxr-xr-x   - hadoop supergroup          0 2018-03-19 07:15 /d6_hive/test
     [hadoop@hadoop001 hadoop]$ 
 
 
