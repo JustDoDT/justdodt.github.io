@@ -28,6 +28,7 @@ tags:
     chkconfig postfix on
     
 **如果postfix start失败**
+
     [root@hadoop001 ~]# postfix check
     postfix: error while loading shared libraries: libmysqlclient.so.16: cannot open shared object file: No such file or directory
     [root@hadoop001 ~]# rpm -qa|grep mysql
