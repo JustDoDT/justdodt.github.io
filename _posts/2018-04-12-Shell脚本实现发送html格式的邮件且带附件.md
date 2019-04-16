@@ -13,7 +13,8 @@ tags:
 
 #### 邮箱开启授权认证
 下图为QQ邮箱开启第三方接收邮件的授权认证
-(/img/shell1.png)
+
+![QQ邮箱授权](/img/shell1.png)
 
 其他邮箱做同样的操作
 
@@ -60,7 +61,7 @@ tags:
     
 
 #### 测试
-echo  "hello word" | mail -s "title"  2391554474@qq.com
+    echo  "hello word" | mail -s "title"  2391554474@qq.com
 
 #### 发邮件不带附件
 
@@ -170,13 +171,14 @@ echo  "hello word" | mail -s "title"  2391554474@qq.com
    
  **注意：如果用的是QQ邮箱自带web可能会出现下面这种情况**
  
- (/img/shell2.png)
+ ![QQ邮箱问题](/img/shell2.png)
  
  **建议大家使用Foxmail收发邮件**
  
- (/img/shell3.png)
+ ![解决问题](/img/shell3.png)
 
 **同时也可以用sendEmail发送邮件**
+
 [参考博文](https://my.oschina.net/u/4005872/blog/3035997)
 
 
