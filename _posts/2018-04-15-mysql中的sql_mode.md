@@ -36,16 +36,16 @@ MySQL 5.7.8 中默认SQL模式添加了 ERROR_FOR_DIVISION_BY_ZERO，NO_ZERO_DAT
 
 sql_mode 的设置有三种方式，分别是启动命令行设置、配置文件设置、运行时设置，多个模式之间使用逗号隔开
 
-### 启动命令行设置
+#### 启动命令行设置
 
 服务启动时，在命令行使用 --sql-mode =“modes” （设置sql_mode） 或 --sql-mode =“” （清空sql_mode）
 
-### 配置文件设置
+#### 配置文件设置
 在Unix操作系统下配置文件 my.cnf 设置 sql-mode =“modes” （设置sql_mode） 或 sql-mode =“”（清空sql_mode）
 
 在Windows系统下配置文件 my.ini 中设置 sql-mode =“modes” 或 sql-mode =“”（清空sql_mode）
 
-### 运行时设置
+#### 运行时设置
 要在运行时更改SQL模式，使用SET语句设置全局或会话sql_mode系统变量：
 
     SET GLOBAL sql_mode = 'modes';
