@@ -122,7 +122,7 @@ splitSize=max{minSize,min{maxSize,blockSize}}
 
 　　b)  文件剩余字节数/splitSize<1.1，剩余的部分全都作为一个split(这主要是考虑到，不用为剩余的很少的字节数一些启动一个Map Task)
 
-我们发现，在默认配置下，split大小和block大小是相同的。这是不是为了防止这种情况：
+**我们发现，在默认配置下，split大小和block大小是相同的。这是为什么？
 
 一个split如果对应的多个block，若这些block大多不在本地，则会降低Map Task的本地性，降低效率。
 
