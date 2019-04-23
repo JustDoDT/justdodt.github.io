@@ -168,6 +168,7 @@ tags:
     </html>
    
  #### 发送测试
+ 
     [hadoop@hadoop001 shell]$cat mail_back.html | mail -s  "$(echo -e "subject\nContent-Type:text/html")" 2391554474@qq.com
    
  **注意：如果用的是QQ邮箱自带web可能会出现下面这种情况**
