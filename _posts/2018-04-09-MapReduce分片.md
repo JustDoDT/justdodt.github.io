@@ -135,6 +135,8 @@ splitSize=max{minSize,min{maxSize,blockSize}}
 **2、上一个block对应的Map Task并没有最后一条完整的record，它又该怎么办？**
 
 　　一般来说，Map Task在读block的时候都会多读后续的几个block，以处理上面的这种情况。
+  
+**参考博客** [MapReduce中如何处理跨行的Block和InputSplit](https://blog.csdn.net/woshixuye/article/details/53606610)  
 
 **`通过上面的源码可以得出，加入一个块大小设置为128MB，如果输入的文件小于128*1.1=140.8MB; 那么就只有一个分片;如果输入的文件大于 140.8MB，小于128*2.1MB，就有2个分片`。**
 
