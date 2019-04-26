@@ -162,3 +162,13 @@ Map 的输出文件放置在运行Map 任务的TaskTracker 的本地磁盘上（
 #### 3.3 性能调优补充
 
 相对于大批量的小文件，hadoop更合适处理少量的大文件。一个原因是FileInputFormat生成的InputSplit是一个文件或该文件的一部分。如果文件很小，并且文件数量很多，那么每次map任务只处理很少的输入数据，每次map操作都会造成额外的开销。
+
+
+### 参考博客
+
+[MapReduce之Shuffle过程详述](https://matt33.com/2016/03/02/hadoop-shuffle/)
+
+
+
+
+
