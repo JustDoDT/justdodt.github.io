@@ -128,7 +128,7 @@ YARN-Client模式下，Application Master仅仅向YARN请求Executor，Client会
 
 ### Spark on Yarn 用Client模式
 
-~~~shell
+~~~sacla
 [hadoop@hadoop001 ~]$ spark-shell --master yarn
 Exception in thread "main" org.apache.spark.SparkException: When running with master 'yarn' either HADOOP_CONF_DIR or YARN_CONF_DIR must be set in the environment.
         at org.apache.spark.deploy.SparkSubmitArguments.error(SparkSubmitArguments.scala:657)
@@ -158,8 +158,11 @@ Welcome to
    /___/ .__/\_,_/_/ /_/\_\   version 2.4.2
       /_/
          
+         
 Using Scala version 2.11.8 (Java HotSpot(TM) 64-Bit Server VM, Java 1.8.0_144)
+
 Type in expressions to have them evaluated.
+
 Type :help for more information.
 
 scala> 
