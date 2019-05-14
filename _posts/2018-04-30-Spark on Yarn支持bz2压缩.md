@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "Spark on Yarn支持Lzo压缩"
+title:      "Spark on Yarn支持bz2压缩"
 date:       2018-04-17 23:01:00
 author:     "JustDoDT"
 header-img: "img/haha.jpg"
@@ -38,7 +38,7 @@ tags:
     spark.driver.extraClassPath        /home/hadoop/app/hadoop-2.6.0-cdh5.7.0/share/hadoop/common/hadoop-lzo-0.4.21-SNAPSHOT.jar
     spark.executor.extraClassPath             /home/hadoop/app/hadoop-2.6.0-cdh5.7.0/share/hadoop/common/hadoop-lzo-0.4.21-SNAPSHOT.jar
     
- ### 2. 启动Spark On Yarn
+### 2. 启动Spark On Yarn
  
     [hadoop@hadoop001 ~]$ spark-shell --master yarn
     .
@@ -53,7 +53,7 @@ tags:
     
     scala> sc.textFile("hdfs://hadoop001:8020/input/wordcount.txt").flatMap(x=>x.split(",")).map((_,1)).reduceByKey(_+_).saveAsTextFile("out/put")
 
- ### 3. 查看结果
+### 3. 查看结果
  
     [hadoop@hadoop001 ~]$ hdfs dfs -ls /out/put
     Found 3 items
