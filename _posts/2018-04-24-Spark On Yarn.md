@@ -170,10 +170,13 @@ scala>
 
 
 
+
 ![Spark on Yarn](/img/Spark/Spark_On_Yarn/spark-on-yarn3.png)
 
 
+
 **注意：为什么是3个container，3个Vcore,Allocated Memory = 5120MB ?**
+
 
 ![Spark on Yarn](/img/Spark/Spark_On_Yarn/spark-on-yarn4.png)
 
