@@ -52,11 +52,11 @@ Spark Application ===> Cluster Manager
 
 Local standalone YARN Mesos K8S ===> Pluggable（可插拔）
 
-**ApplicationMaster:AM **
+**ApplicationMaster:AM**
 
 YARN Application ===> AM(first container)
 
-**Worker  **
+**Worker**
 
   	在YARN中没有；executor runs in container(memory of container  > executor memory)
 
@@ -121,9 +121,8 @@ YARN-Client模式下，Application Master仅仅向YARN请求Executor，Client会
 
 [Spark官网介绍两种的模式](http://spark.apache.org/docs/latest/running-on-yarn.html)
 
-~~~sql
-In cluster mode, the Spark driver runs inside an application master process which is managed by YARN on the cluster, and the client can go away after initiating the application. In client mode, the driver runs in the client process, and the application master is only used for requesting resources from YARN.
-~~~
+   In cluster mode, the Spark driver runs inside an application master process which is managed by YARN on the cluster,      and the client can go away after initiating the application. In client mode, the driver runs in the client process,       and the application master is only used for requesting resources from YARN.
+
 
 
 
@@ -501,7 +500,7 @@ iver-memory 2g     --executor-memory 1g     --executor-cores 1       examples/ja
 
 ### 参考文章
 
-[[spark跑YARN模式或Client模式提交任务不成功（application state: ACCEPTED）](https://www.cnblogs.com/zlslch/p/6683814.html)
+[spark跑YARN模式或Client模式提交任务不成功（application state: ACCEPTED）](https://www.cnblogs.com/zlslch/p/6683814.html)
 
 [Spark运行架构](http://www.uml.org.cn/bigdata/201712274.asp)
 
