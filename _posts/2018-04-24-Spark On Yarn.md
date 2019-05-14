@@ -1,4 +1,14 @@
-## Spark On Yarn
+---
+layout:     post
+title:      "Spark on Yarn"
+date:       2018-04-24 23:01:00
+author:     "JustDoDT"
+header-img: "img/haha.jpg"
+catalog: true
+tags:
+    - spark
+---
+
 
 ### 1. 概述
 
@@ -56,7 +66,7 @@ Yarn-Client模式中，Driver在客户端本地运行，这种模式可以使得
 
 YARN-client的工作流程分为以下几个步骤：
 
-![1557837179072](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\1557837179072.png)
+![Spark on Yarn](/img/Spark/Spark_On_Yarn/spark-on-yarn1.png)
 
 1.Spark Yarn Client向YARN的ResourceManager申请启动Application Master。同时在SparkContent初始化中将创建DAGScheduler和TASKScheduler等，由于我们选择的是Yarn-Client模式，程序会选择YarnClientClusterScheduler和YarnClientSchedulerBackend；
 
@@ -81,7 +91,7 @@ YARN-client的工作流程分为以下几个步骤：
 
 **YARN-cluster的工作流程分为以下几个步骤：**
 
-![1557839276156](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\1557839276156.png)
+![Spark on Yarn](/img/Spark/Spark_On_Yarn/spark-on-yarn2.png)
 
 
 
@@ -161,13 +171,12 @@ scala>
 
 
 
-![1557814828713](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\1557814828713.png)
-
+![Spark on Yarn](/img/Spark/Spark_On_Yarn/spark-on-yarn3.png)
 
 
 **注意：为什么是3个container，3个Vcore,Allocated Memory = 5120MB ?**
 
-![1557815679466](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\1557815679466.png)
+![Spark on Yarn](/img/Spark/Spark_On_Yarn/spark-on-yarn4.png)
 
 
 
@@ -485,10 +494,9 @@ iver-memory 2g     --executor-memory 1g     --executor-cores 1       examples/ja
 
 **成功了，在Web UI 上查看结果**
 
-![1557830321301](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\1557830321301.png)
+![Spark on Yarn](/img/Spark/Spark_On_Yarn/spark-on-yarn5.png)
 
-![1557830366105](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\1557830366105.png)
-
+![Spark on Yarn](/img/Spark/Spark_On_Yarn/spark-on-yarn6.png)
 
 
 ### 参考文章
