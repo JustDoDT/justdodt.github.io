@@ -1,3 +1,15 @@
+---
+layout:     post
+title:      "coalesce和repartiotion的区别"
+date:       2018-05-01 23:01:00
+author:     "JustDoDT"
+header-img: "img/haha.jpg"
+catalog: true
+tags:
+    - spark
+---
+
+
 ### 1. coalesce 和 repartiotion的区别
 
 #### 1.1 coalesce在源码中的介绍
@@ -93,14 +105,12 @@ res11: Array[Int] = Array(1, 2, 3, 4)
 
 **当data3（即分区数目变大）触发job时的DAG图形**
 
-![1557907807867](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\1557907807867.png)
-
+![浅谈RDD](/img/Spark/coalesce1.png)  
 
 
 **当data1（即分区数目变小）触发job时候的DAG图形**
 
-![1557907932064](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\1557907932064.png)
-
+![浅谈RDD](/img/Spark/coalesce2.png)  
 
 
 **repartition测试，当分区数目变大**
@@ -119,8 +129,7 @@ res14: Array[Int] = Array(1, 4, 3, 2)
 
 
 
-![1557908140091](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\1557908140091.png)
-
+![浅谈RDD](/img/Spark/coalesce3.png)  
 
 
 **repartition测试，当分区数目减少的时候**
@@ -140,8 +149,7 @@ res15: Array[Int] = Array(1, 3, 4, 2)
 
 
 
-![1557908673497](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\1557908673497.png)
-
+![浅谈RDD](/img/Spark/coalesce4.png)  
 
 
 **不使用coalesce和repartition时候**
