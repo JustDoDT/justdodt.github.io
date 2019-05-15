@@ -53,7 +53,7 @@ res1: Array[(String, Int)] = Array((Hello,4), (World,3), (China,2), (Hi,1))
 
 **查看生成的DAG图**
 
-![1557923514473](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\1557923514473.png)
+![浅谈RDD](/img/Spark/reduceByKey1.png)  
 
 
 
@@ -110,7 +110,7 @@ res17: Array[(String, Int)] = Array((Hello,4), (World,3), (China,2), (Hi,1))
 
 **查看生成的DAG图**
 
-![1557923577610](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\1557923577610.png)
+![浅谈RDD](/img/Spark/groupByKey1.png)  
 
 #### 2.3 reduceByKey与groupByKey的差异
 
