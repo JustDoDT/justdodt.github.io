@@ -1,3 +1,15 @@
+---
+layout:     post
+title:      "Spark RDD中的cache,persist,checkpint"
+date:       2018-04-30 23:01:00
+author:     "JustDoDT"
+header-img: "img/haha.jpg"
+catalog: true
+tags:
+    - spark
+---
+
+
 ### 1. 概述
 
 作为区别于 Hadoop 的一个重要 feature，cache 机制保证了需要访问重复数据的应用（如迭代型算法和交互式应用）可以运行的更快。与 Hadoop MapReduce job 不同的是 Spark 的逻辑/物理执行图可能很庞大，task 中 computing chain 可能会很长，计算某些 RDD 也可能会很耗时。这时，如果 task 中途运行出错，那么 task 的整个 computing chain 需要重算，代价太高。因此，有必要将计算代价较大的 RDD checkpoint 一下，这样，当下游 RDD 计算出错时，可以直接从 checkpoint 过的 RDD 那里读取数据继续算。
@@ -76,13 +88,13 @@ object StorageLevel {
 
   调用 rdd.cache() 后， rdd 就变成 persistRDD 了，其 StorageLevel 为 MEMORY_ONLY。persistRDD 会告知 driver 说自己是需要被 persist 的。
 
-![1557891899973](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\1557891899973.png)
+  ![浅谈RDD](/img/Spark/checkpoint1.png)
 
 - `问题：cached RDD 怎么被读取？`
 
   下次计算（一般是同一 application 的下一个 job 计算）时如果用到 cached RDD，task 会直接去 blockManager 的 memoryStore 中读取。具体地讲，当要计算某个 rdd 中的 partition 时候（通过调用 rdd.iterator()）会先去 blockManager 里面查找是否已经被 cache 了，如果 partition 被 cache 在本地，就直接使用 blockManager.getLocal() 去本地 memoryStore 里读取。如果该 partition 被其他节点上 blockManager cache 了，会通过 blockManager.getRemote() 去其他节点上读取，读取过程如下图。
 
-![1557892117135](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\1557892117135.png)
+ ![浅谈RDD](/img/Spark/checkpoint2.png)
 
 #### 2.3 生产上用啥存储级别
 
