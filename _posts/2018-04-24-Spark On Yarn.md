@@ -180,6 +180,19 @@ scala>
 
 **注意：为什么是3个container，3个Vcore,Allocated Memory = 5120MB ?**
 
+**答案：**
+
+yarn.scheduler.minimum-allocation-vcores
+单个任务可申请的最小虚拟CPU个数，默认是1，表示每个Container容器在处理任务的时候可申请的最少CPU个数为1个。
+
+yarn.scheduler.maximum-allocation-vcores
+单个任务可申请的最多虚拟CPU个数，默认是4,表示每个Container容器在处理任务的时候可申请的最少CPU个数为4个。
+
+所以就是3个container--->3个Vcore
+
+在spark-defaults.conf中spark.driver.memory默认为5g，所以Allocated Memory = 5120MB
+
+
 
 ![Spark on Yarn](/img/Spark/Spark_On_Yarn/spark-on-yarn4.png)
 
