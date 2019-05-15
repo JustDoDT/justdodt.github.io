@@ -1,7 +1,7 @@
 ---
 layout:     post
-title:      "coalesce和repartiotion的区别"
-date:       2018-05-01 23:01:00
+title:      "reduceByKey,groupByKey,count,collect算子"
+date:       2018-05-02 23:01:00
 author:     "JustDoDT"
 header-img: "img/haha.jpg"
 catalog: true
@@ -10,247 +10,165 @@ tags:
 ---
 
 
-### 1. coalesce 和 repartiotion的区别
 
-#### 1.1 coalesce在源码中的介绍
+### 1. ReduceByKey
 
+#### 1.1 源码中介绍
 
-      /**
-         * Return a new RDD that is reduced into `numPartitions` partitions.
-         *
-         * This results in a narrow dependency, e.g. if you go from 1000 partitions
-         * to 100 partitions, there will not be a shuffle, instead each of the 100
-         * new partitions will claim 10 of the current partitions. If a larger number
-         * of partitions is requested, it will stay at the current number of partitions.
-         *
-         * However, if you're doing a drastic coalesce, e.g. to numPartitions = 1,
-         * this may result in your computation taking place on fewer nodes than
-         * you like (e.g. one node in the case of numPartitions = 1). To avoid this,
-         * you can pass shuffle = true. This will add a shuffle step, but means the
-         * current upstream partitions will be executed in parallel (per whatever
-         * the current partitioning is).
-         *
-         * @note With shuffle = true, you can actually coalesce to a larger number
-         * of partitions. This is useful if you have a small number of partitions,
-         * say 100, potentially with a few partitions being abnormally large. Calling
-         * coalesce(1000, shuffle = true) will result in 1000 partitions with the
-         * data distributed using a hash partitioner. The optional partition coalescer
-         * passed in must be serializable.
-         */
-     def coalesce(numPartitions: Int, shuffle: Boolean = false,
-           partitionCoalescer: Option[PartitionCoalescer] = Option.empty)
-          (implicit ord: Ordering[T] = null)
-         : RDD[T] = withScope {
-       require(numPartitions > 0, s"Number of partitions ($numPartitions) must be positive.")
+~~~
+/**
+   * Merge the values for each key using an associative and commutative reduce function. This will
+   * also perform the merging locally on each mapper before sending results to a reducer, similarly
+   * to a "combiner" in MapReduce.
+   */
+  def reduceByKey(partitioner: Partitioner, func: (V, V) => V): RDD[(K, V)] = self.withScope {
+    combineByKeyWithClassTag[V]((v: V) => v, func, func, partitioner)
+  }
 
-
-
-
-#### 1.2 repartition在源码中的介绍
-
-
-    /**
-       * Return a new RDD that has exactly numPartitions partitions.
-       *
-       * Can increase or decrease the level of parallelism in this RDD. Internally, this uses
-       * a shuffle to redistribute data.
-       *
-       * If you are decreasing the number of partitions in this RDD, consider using `coalesce`,
-       * which can avoid performing a shuffle.
-       */
-          def repartition(numPartitions: Int)(implicit ord: Ordering[T] = null): RDD[T] = withScope {
-            coalesce(numPartitions, shuffle = true)
-          }
-    
-
-
-
-`从源码中可以看出，repartition底层是调用的coalesce；repatition是一定要经过shuffle的，coalesce在分区数目减少的情况下不经过shuffle，在分区数目增加的情况下也是会产生shuffle的。`
-
-
-
-### 2. 测试
-
-~~~scala
-scala> val data = sc.parallelize(List(1,2,3,4))
-data: org.apache.spark.rdd.RDD[Int] = ParallelCollectionRDD[6] at parallelize at <console>:24
-
-scala> data.partitions.length
-res6: Int = 4
-
-scala> val data1 = data.coalesce(1)
-data1: org.apache.spark.rdd.RDD[Int] = CoalescedRDD[7] at coalesce at <console>:25
-
-scala> data1.partitions.length
-res7: Int = 1
-
-scala> val data2 = data.coalesce(5)
-data2: org.apache.spark.rdd.RDD[Int] = CoalescedRDD[8] at coalesce at <console>:25
-
-scala> data2.partitions.length
-res8: Int = 4
-
-scala> val data3 = data.coalesce(5,true)
-data3: org.apache.spark.rdd.RDD[Int] = MapPartitionsRDD[12] at coalesce at <console>:25
-
-scala> data3.partitions.length
-res9: Int = 5
-
-scala> data3.collect
-res10: Array[Int] = Array(1, 3, 4, 2)
-
-scala> data1.collect
-res11: Array[Int] = Array(1, 2, 3, 4)
+  /**
+   * Merge the values for each key using an associative and commutative reduce function. This will
+   * also perform the merging locally on each mapper before sending results to a reducer, similarly
+   * to a "combiner" in MapReduce. Output will be hash-partitioned with numPartitions partitions.
+   */
+  def reduceByKey(func: (V, V) => V, numPartitions: Int): RDD[(K, V)] = self.withScope {
+    reduceByKey(new HashPartitioner(numPartitions), func)
+  }
 ~~~
 
-**当data3（即分区数目变大）触发job时的DAG图形**
-
-![浅谈RDD](/img/Spark/coalesce1.png)  
 
 
-**当data1（即分区数目变小）触发job时候的DAG图形**
-
-![浅谈RDD](/img/Spark/coalesce2.png)  
+**由源码可以得出，reduceByKey在每个mapper中进行合并然后发送到reducer，相当于MapReduce的combiner**
 
 
-**repartition测试，当分区数目变大**
+
+#### 1.2 测试
 
 ~~~scala
-scala> data.partitions.length
-res13: Int = 4
-
-scala> val data4 = data.repartition(6)
-data4: org.apache.spark.rdd.RDD[Int] = MapPartitionsRDD[16] at repartition at <console>:25
-
-scala> data4.collect
-res14: Array[Int] = Array(1, 4, 3, 2)
+scala> sc.textFile("file:///home/hadoop/data/wordcount.txt").flatMap(x=>x.split(",")).map((_,1)).reduceByKey(_+_).collect
+res1: Array[(String, Int)] = Array((Hello,4), (World,3), (China,2), (Hi,1))
 
 ~~~
 
 
 
-![浅谈RDD](/img/Spark/coalesce3.png)  
+**查看生成的DAG图**
+
+![1557923514473](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\1557923514473.png)
 
 
-**repartition测试，当分区数目减少的时候**
 
-~~~scala
-scala> val data5 = data.repartition(2)
-data5: org.apache.spark.rdd.RDD[Int] = MapPartitionsRDD[20] at repartition at <console>:25
+### 2. groupByKey
 
-scala> data5.partitions.length
-res16: Int = 2
+#### 2.1 源码中介绍
 
-scala> data5.collect
-res15: Array[Int] = Array(1, 3, 4, 2)
+~~~
+/**
+   * Group the values for each key in the RDD into a single sequence. Hash-partitions the
+   * resulting RDD with the existing partitioner/parallelism level. The ordering of elements
+   * within each group is not guaranteed, and may even differ each time the resulting RDD is
+   * evaluated.
+   *
+   * @note This operation may be very expensive. If you are grouping in order to perform an
+   * aggregation (such as a sum or average) over each key, using `PairRDDFunctions.aggregateByKey`
+   * or `PairRDDFunctions.reduceByKey` will provide much better performance.
+   */
+  def groupByKey(): RDD[(K, Iterable[V])] = self.withScope {
+    groupByKey(defaultPartitioner(self))
+  }
 ~~~
 
 
 
+**源码中说了，此操作代价可能非常昂贵，对于求和或者求平均值的情况；她是将RDD中的每个key分组为单个序列**
 
 
-![浅谈RDD](/img/Spark/coalesce4.png)  
 
-
-**不使用coalesce和repartition时候**
+#### 2.2 测试
 
 ~~~scala
-scala> import scala.collection.mutable.ListBuffer
-import scala.collection.mutable.ListBuffer
+scala> val data = sc.textFile("file:///home/hadoop/data/wordcount.txt").flatMap(x=>x.split(",")).map((_,1)).groupByKey()
+data: org.apache.spark.rdd.RDD[(String, Iterable[Int])] = ShuffledRDD[9] at groupByKey at <console>:24
 
-scala> val students = sc.parallelize(List("A","B","C","D","E","F"),3)
-students: org.apache.spark.rdd.RDD[String] = ParallelCollectionRDD[23] at parallelize at <console>:25
+scala> data.collect
+res2: Array[(String, Iterable[Int])] = Array((Hello,CompactBuffer(1, 1, 1, 1)), (World,CompactBuffer(1, 1, 1)), (China,CompactBuffer(1, 1)), (Hi,CompactBuffer(1)))
 
-scala> students.mapPartitionsWithIndex((index,paritions) =>{
-     |   val stus = new ListBuffer[String]
-     |   while (paritions.hasNext){
-     |     stus += (paritions.next() + "\t" + (index + 1) + "组" )
-     |   }
-     |   stus.iterator
-     | }).foreach(println)
-E       3组
-F       3组
-A       1组
-B       1组
-C       2组
-D       2组
+scala> data.map(x=>(x._1,x._2.sum)).collect
+res4: Array[(String, Int)] = Array((Hello,4), (World,3), (China,2), (Hi,1))
+
+### 方法二，用reduce(_+_)
+scala> val data = sc.textFile("file:///home/hadoop/data/wordcount.txt").flatMap(x=>x.split(",")).map((_,1)).groupByKey()
+data: org.apache.spark.rdd.RDD[(String, Iterable[Int])] = ShuffledRDD[17] at groupByKey at <console>:24
+
+scala> data.map(x=>(x._1,x._2.reduce(_+_)))
+res16: org.apache.spark.rdd.RDD[(String, Int)] = MapPartitionsRDD[18] at map at <console>:26
+
+scala> data.map(x=>(x._1,x._2.reduce(_+_))).collect
+res17: Array[(String, Int)] = Array((Hello,4), (World,3), (China,2), (Hi,1))
 ~~~
 
 
 
-**测试coalesce，当分区数目减少的时候**
+**查看生成的DAG图**
 
-~~~scala
-scala> val students = sc.parallelize(List("A","B","C","D","E","F"),3)
-students: org.apache.spark.rdd.RDD[String] = ParallelCollectionRDD[25] at parallelize at <console>:25
+![1557923577610](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\1557923577610.png)
 
-scala> students.coalesce(2).mapPartitionsWithIndex((index,paritions) =>{
-     |   val stus = new ListBuffer[String]
-     |   while (paritions.hasNext){
-     |     stus += (paritions.next() + "\t" + (index + 1) + "组" )
-     |   }
-     |   stus.iterator
-     | }).foreach(println)
-C       2组
-D       2组
-E       2组
-F       2组
-A       1组
-B       1组
+#### 2.3 reduceByKey与groupByKey的差异
+
+根据DAG图可以看出来，reduceByKey在的shuffle数量明显小于groupByKey数量，因为在源码中已经做了说明，reduceByKey在每个mapper中进行合并然后发送到reducer，相当于MapReduce的combiner；而groupByKey在mapper中未做合并操作。
+
+**注意：reduceByKey和groupByKey都是PairRDDFunctions类里面的**
+
+#### 2.4 PairRDDFunctions类
+
 ~~~
+**
+ * Extra functions available on RDDs of (key, value) pairs through an implicit conversion.
+ */
+class PairRDDFunctions[K, V](self: RDD[(K, V)])
+    (implicit kt: ClassTag[K], vt: ClassTag[V], ord: Ordering[K] = null)
+  extends Logging with Serializable {
 
-**测试repartition，当分区增多的时候**
-
-~~~scala
-scala> val students = sc.parallelize(List("A","B","C","D","E","F"),3)
-students: org.apache.spark.rdd.RDD[String] = ParallelCollectionRDD[25] at parallelize at <console>:25
-
-scala> students.repartition(4).mapPartitionsWithIndex((index,paritions) =>{
-     |   val stus = new ListBuffer[String]
-     |   while (paritions.hasNext){
-     |     stus += (paritions.next() + "\t" + (index + 1) + "组" )
-     |   }
-     |   stus.iterator
-     | }).foreach(println)
 ~~~
 
 
 
-### 3. 结论：在生产上两者如何使用
+**PairRDDFunctions通过隐式转换在（键，值）对的RDD上可用的额外功能。**
 
-repartition(numPartitions:Int):RDD[T]和coalesce(numPartitions:Int，shuffle:Boolean=false):RDD[T]
+### 3. count算子
 
-他们两个都是RDD的分区进行重新划分，repartition只是coalesce接口中shuffle为true的简易实现，（假设RDD有N个分区，需要重新划分成M个分区）
+**查看源码**
 
-- 如果N<M。一般情况下N个分区有数据分布不均匀的状况，利用HashPartitioner函数将数据重新分区为M个，这时需要将shuffle设置为true。可以使用repartition或者coalesce为true的情况。
+~~~
+/**
+   * Return the number of elements in the RDD.
+   */
+  def count(): Long = sc.runJob(this, Utils.getIteratorSize _).sum
+~~~
 
-- 如果N>M并且N和M相差不多，那么就可以将N个分区中的若干个分区合并成一个新的分区，最终合并为M个分区，这时可以将shuffle设置为false，这时只能使用coalesce，在shuffle为false的情况下，如果M>N时，coalesce为无效的，不进行shuffle过程，父RDD和子RDD之间是窄依赖关系。
-
-- 如果N>M并且两者相差悬殊，这时如果将shuffle设置为false，父子RDD是窄依赖关系，他们同处在一个Stage中，就可能造成spark程序的并行度不够，从而影响性能，如果在M为1的时候，为了使coalesce之前的操作有更好的并行度，可以将shuffle设置为true。
-
-**总之：如果shuffle为false时，如果传入的参数大于现有的分区数目，RDD的分区数不变，也就是说不经过shuffle，是无法将RDDde分区数变多的。**
-
-
-
+**返回RDD元素中的个数**
 
 
 
+### 4. collect 算子
+
+**查看源码**
+
+~~~
+/**
+   * Return an array that contains all of the elements in this RDD.
+   *
+   * @note This method should only be used if the resulting array is expected to be small, as
+   * all the data is loaded into the driver's memory.
+   */
+  def collect(): Array[T] = withScope {
+    val results = sc.runJob(this, (iter: Iterator[T]) => iter.toArray)
+    Array.concat(results: _*)
+  }
+~~~
 
 
 
+**返回RDD中的所有元素，注意，这个方法仅当期望结果数组较小时才应使用此方法，因为所有数据都已加载到驱动程序的内存中。**
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+**注意：count和collect都是action算子，因为在源码中，他们都有runJob；也就是说action算子都有runJob方法**
 
