@@ -17,7 +17,7 @@ tags:
 
 **Spark作业跑在yarn上的时候出现作业一直提交不上**
 
-![1558542517711](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\1558542517711.png)
+![Spark on Yarn](/img/Spark/Spark_On_Yarn/spark-on-yarn7.png)
 
 
 
@@ -39,13 +39,13 @@ tags:
 
 **查看hdfs的块报告**
 
-![1558550184276](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\1558550184276.png)
+![Spark on Yarn](/img/Spark/Spark_On_Yarn/spark-on-yarn8.png)
 
 
 
 **查看HDFS Web**
 
-![1558551229221](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\1558551229221.png)
+![Spark on Yarn](/img/Spark/Spark_On_Yarn/spark-on-yarn9.png)
 
 
 
@@ -91,7 +91,7 @@ tags:
 
 **然后查看HDFS的块情况**
 
-![1558600714983](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\1558600714983.png)
+![Spark on Yarn](/img/Spark/Spark_On_Yarn/spark-on-yarn10.png)
 
 
 
@@ -101,11 +101,10 @@ tags:
 
 ### Yarn节点出现了问题
 
-![1558542399028](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\1558542399028.png)
+![Spark on Yarn](/img/Spark/Spark_On_Yarn/spark-on-yarn11.png)
 
 
-
-![1558588204204](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\1558588204204.png)
+![Spark on Yarn](/img/Spark/Spark_On_Yarn/spark-on-yarn12.png)
 
 
 
@@ -115,11 +114,11 @@ tags:
 
 
 
-![1558542493356](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\1558542493356.png)
+![Spark on Yarn](/img/Spark/Spark_On_Yarn/spark-on-yarn13.png)
 
 
 
-![1558589355035](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\1558589355035.png)
+![Spark on Yarn](/img/Spark/Spark_On_Yarn/spark-on-yarn14.png)
 
 
 
@@ -136,7 +135,8 @@ tags:
 
 **再次查看yarn web，发现节点都健康运行**
 
-![1558589033991](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\1558589033991.png)
+![Spark on Yarn](/img/Spark/Spark_On_Yarn/spark-on-yarn15.png)
+
 
 **块扫描：**https://blog.cloudera.com/blog/2016/12/hdfs-datanode-scanners-and-disk-checker-explained/
 
@@ -150,7 +150,7 @@ tags:
 
 
 
-![1558603580028](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\1558603580028.png)
+![Spark on Yarn](/img/Spark/Spark_On_Yarn/spark-on-yarn16.png)
 
 
 
