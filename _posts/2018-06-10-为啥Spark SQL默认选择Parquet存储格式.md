@@ -15,7 +15,7 @@ tags:
 
 ### 参考资料
 
--[选择 Parquet for Spark SQL 的 5 大原因](https://www.ibm.com/developerworks/cn/analytics/blog/5-reasons-to-choose-parquet-for-spark-sql/)
+- [选择 Parquet for Spark SQL 的 5 大原因](https://www.ibm.com/developerworks/cn/analytics/blog/5-reasons-to-choose-parquet-for-spark-sql/)
 
 - [5 Reasons to Choose Parquet for Spark SQL](https://developer.ibm.com/hadoop/2016/01/14/5-reasons-to-choose-parquet-for-spark-sql/)
 
