@@ -137,6 +137,16 @@ object HiveApp {
 ERROR log: Got exception: org.apache.hadoop.security.AccessControlException Permission denied: user=HUAWEI, access=WRITE, inode="/user/hive/warehouse":hadoop:supergroup:drwxr-xr-x
 ```
 
+**注意：启动hive2的时候会遇到/spark/lib/spark-assembly-*.jar: No such file or directory**
+
+~~~
+ 请修改$HIVE_HOME/bin/hive 启动脚本文件,在116行
+ 
+ // 定位到位置,上面一行是原有的,下一行是修改的
+#sparkAssemblyPath=`ls ${SPARK_HOME}/lib/spark-assembly-*.jar`
+sparkAssemblyPath=`ls ${SPARK_HOME}/jars/*.jar`
+~~~
+
 **修改HDFS目录的权限**
 
 ~~~
