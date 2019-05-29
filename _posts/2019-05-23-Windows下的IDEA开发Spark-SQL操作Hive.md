@@ -18,7 +18,13 @@ tags:
 
 ### 操作步骤
 
-#### 首先启动Spark里面的hiveserver2
+#### 启动 metastore 
+
+~~~
+[hadoop@hadoop001 bin]$ hive --service metastore 
+~~~
+
+#### 启动Spark里面的hiveserver2
 
 ~~~
 [hadoop@hadoop001 sbin]$ ./start-thriftserver.sh --jars ~/software/mysql-connector-java-5.1.43-bin.jar 
@@ -26,13 +32,13 @@ tags:
 
 
 
-#### 再启动spark中的beeline
+#### 启动spark中的beeline
 
 ~~~
 [hadoop@hadoop001 bin]$ ./beeline -u jdbc:hive2://hadoop001:10000 -n hadoop         
 ~~~
 
-
+**注意：可以不启动 hive2 和 beeline，只启动 metastore;为了后面的测试启动了hive2和beeline**
 
 #### 在IEDA的resources里面添加hive-site.xml
 
