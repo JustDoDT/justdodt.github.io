@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "Flume中的sink到HDFS和Kafka的操作"
+title:      "Flume中的Sink到HDFS和Kafka的操作"
 date:       2019-05-24 02:41:00
 author:     "JustDoDT"
 header-img: "img/haha.jpg"
