@@ -14,7 +14,7 @@ tags:
 
 ### 启动MySQL
 
-###创建maxwell的数据库和用户
+### 创建maxwell的数据库和用户
 
 ### 在MySQL中创建一个测试数据库和表
 
