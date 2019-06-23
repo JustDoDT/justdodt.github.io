@@ -26,9 +26,9 @@ kafka配合Spark Streaming是大数据领域常见的黄金搭档，主要用于
 
   
 
-  ​	首先在producer端保证“至少一次”和“至多一次”语义是非常简单的，至少一次只需要同步确认即可（确认方式分为只需要leader确认以及所有副本都确认，第二种更加具有容错性）；至多一次最简单，只需要异步不断的发送即可，效率也比较高。目前在producer端还不能保证精确一次，在未来有可能实现，实现方式如下：在同步确认的基础上为每一条消息加一个主键，如果发现主键曾经接受过，则丢弃。
+ - 首先在producer端保证“至少一次”和“至多一次”语义是非常简单的，至少一次只需要同步确认即可（确认方式分为只需要leader确认以及所有副本都确认，第二种更加具有容错性）；至多一次最简单，只需要异步不断的发送即可，效率也比较高。目前在producer端还不能保证精确一次，在未来有可能实现，实现方式如下：在同步确认的基础上为每一条消息加一个主键，如果发现主键曾经接受过，则丢弃。
 
-  ​	在 consumer 端，大家都知道可以控制 offset，所以可以控制消费，其实 offset 只有在重启的时候才会用到。在机器正常运行时我们用的是 position，我们实时消费的位置也是 position 而不是 offset。我们可以得到每一条消息的 position。如果我们在处理消息之前就将当前消息的 position 保存到 zk 上即 offset，这就是`至多一次`消费，因为我们可能保存成功后，消息还没有消费机器就挂了，当机器再打开时此消息就丢失了；或者我们可以先消费消息然后保存 position 到 zk 上即 offset，此时我们就是`至少一次`，因为我们可能在消费完消息后offset 没有保存成功。而`精确一次`的做法就是让 position的保存和消息的消费成为原子性操作，比如将消息和 position 同时保存到 hdfs 上 ，此时保存的 position 就称为 offset，当机器重启后，从 hdfs重新读入offset，这就是精确一次。
+ - 在 consumer 端，大家都知道可以控制 offset，所以可以控制消费，其实 offset 只有在重启的时候才会用到。在机器正常运行时我们用的是 position，我们实时消费的位置也是 position 而不是 offset。我们可以得到每一条消息的 position。如果我们在处理消息之前就将当前消息的 position 保存到 zk 上即 offset，这就是`至多一次`消费，因为我们可能保存成功后，消息还没有消费机器就挂了，当机器再打开时此消息就丢失了；或者我们可以先消费消息然后保存 position 到 zk 上即 offset，此时我们就是`至少一次`，因为我们可能在消费完消息后offset 没有保存成功。而`精确一次`的做法就是让 position的保存和消息的消费成为原子性操作，比如将消息和 position 同时保存到 hdfs 上 ，此时保存的 position 就称为 offset，当机器重启后，从 hdfs重新读入offset，这就是精确一次。
 
 
 
@@ -40,9 +40,8 @@ kafka配合Spark Streaming是大数据领域常见的黄金搭档，主要用于
 
 下面这张图能够简要的说明管理offset的大致流程。
 
-![1561303724891](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\1561303724891.png)
 
-
+![SparkStreaming](/img/Spark/SparkStreaming/SparkStreaming1.png)
 
 
 
