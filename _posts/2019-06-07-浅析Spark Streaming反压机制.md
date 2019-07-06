@@ -22,7 +22,7 @@ Spark Streaming中的反压机制是Spark 1.5.0推出的新特性，可以根据
 
 **部分代码**
 
-~~~scala
+~~~
 override def onBatchCompleted(batchCompleted: StreamingListenerBatchCompleted) {
     val elements = batchCompleted.batchInfo.streamIdToInputInfo
 
