@@ -85,6 +85,7 @@ def compute(
 默认值无，初始最大接收速率。只适用于Receiver Stream,不适用于Direct Stream。类型为整数，默认直接读取所有，在1开启的情况下，限制第一次批处理应该消费数据，因为程序冷启动有大量的挤压，防止第一次全部读取，造成系统阻塞。
 
 3.`spark.streaming.kafka.maxRatePerPartition`
+
 类型为整数,默认直接读取所有,限制每秒每个消费线程读取每个kafka分区最大的数据量
 
 4.`spark.streaming.stopGracefullyOnShutdown`
@@ -139,7 +140,13 @@ conf.set("spark.streaming.backpressure.initialRate","10")
 
 
 
-要保证反压机制真正起作用前Spark应用程序不会崩溃，需要控制每个批次最大摄入速率。以Direct Stream为例，如Kafka Direct Stream，则可以通过spark.streaming.kafka.maxRatePerPartition参数来控制。此参数代表了每秒每个分区最大摄入的数据条数。假设BatchDuration为10秒，spark,streaming.kafka.maxRatePerPartition为12条，kafka topic分区数为3个，则一个批次(Batch) 最大读取的数据条数为360条(3 * 12 * 10=360)。同时，需要注意的是，该参数也代表了整个应用生命周期的最大速率即使是反压调整的最大值也不会超过这个参数。
+要保证反压机制真正起作用前Spark应用程序不会崩溃，需要控制每个批次最大摄入速率。以Direct Stream为例，如Kafka Direct Stream，则可以通过
+
+spark.streaming.kafka.maxRatePerPartition参数来控制。此参数代表了每秒每个分区最大摄入的数据条数。假设BatchDuration为10秒，
+
+spark,streaming.kafka.maxRatePerPartition为12条，kafka topic分区数为3个，则一个批次(Batch) 最大读取的数据条数为`360条(3 * 12 * 10=360)`。同时，
+
+需要注意的是，该参数也代表了整个应用生命周期的最大速率即使是反压调整的最大值也不会超过这个参数。
 
 
 
