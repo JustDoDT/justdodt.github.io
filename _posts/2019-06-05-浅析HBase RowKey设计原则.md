@@ -224,7 +224,7 @@ uid + Long.Max_Value - timestamp
 
 **例如：**有一张HBase表结构及数据如下
 
-![1562407571191](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\1562407571191.png)
+![HBase](/img/HBase/RowKey1.png) 
 
 
 
