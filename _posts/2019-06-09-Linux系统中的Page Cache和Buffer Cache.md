@@ -15,7 +15,7 @@ tags:
 
 首先，我们来了解下内存的使用情况：
 
-![1562509149982](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\1562509149982.png)
+![Linux](/img/Linux/Page Cache1.png) 
 
 
 
@@ -61,7 +61,7 @@ cache: 作为page cache的内存, 文件系统的cache，是memory的缓冲区 �
 
 图1描述了 Linux 操作系统中文件 Cache 管理与内存管理以及文件系统的关系示意图。从图中可以看到，在 Linux 中，具体文件系统，如 ext2/ext3、jfs、ntfs 等，负责在文件 Cache和存储设备之间交换数据，位于具体文件系统之上的虚拟文件系统VFS负责在应用程序和文件 Cache 之间通过 read/write 等接口交换数据，而内存管理系统负责文件 Cache 的分配和回收，同时虚拟内存管理系统(VMM)则允许应用程序和文件 Cache 之间通过 memory map的方式交换数据。可见，在 Linux 系统中，文件 Cache 是内存管理系统、文件系统以及应用程序之间的一个联系枢纽。
 
-![1562517117092](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\1562517117092.png)
+![Linux](/img/Linux/Page Cache2.png) 
 
  
 
@@ -73,7 +73,7 @@ cache: 作为page cache的内存, 文件系统的cache，是memory的缓冲区 �
 
 另一个数据结构是双向链表，Linux内核为每一片物理内存区域(zone)维护active_list和inactive_list两个双向链表，这两个list主要用来实现物理内存的回收。这两个链表上除了文件Cache之外，还包括其它匿名(Anonymous)内存，如进程堆栈等。
 
-![1562517142521](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\1562517142521.png)
+![Linux](/img/Linux/Page Cache3.png) 
 
 ### Page cache（页面缓存）
 
