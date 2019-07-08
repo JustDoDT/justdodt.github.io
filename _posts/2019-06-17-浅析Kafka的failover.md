@@ -116,9 +116,11 @@ b. Broker Fail，导致partition的leader发生切换或partition offline，具�
 c. Broker 被 hang 住 。 
 这是一种比较特殊的 case，出现时在 server.log 会出现如下的log，
 
-~~~
-server.log： “INFO I wrote this conflicted ephemeral node [{"jmx_port":9999,"timestamp":"1444709  63049","host":"10.151.4.136","version":1,"port":9092}] at /brokers/ids/1 a while back in a different session, hence I will backoff for this node to be deleted by Zookeeper and retry (kafka.utils.ZkUtils$)”
-~~~
+
+    server.log： “INFO I wrote this conflicted ephemeral node [{"jmx_port":9999,"timestamp":"1444709 
+    63049","host":"10.151.4.136","version":1,"port":9092}] at /brokers/ids/1 a while back in a different session, hence I will backoff 
+    for   this node to be deleted by Zookeeper and retry (kafka.utils.ZkUtils$)”
+
 
 即 **zk 的 session 过期和 ephemeral node 删除并不是一个原子操作;** 
 出现的case如下：
@@ -150,9 +152,11 @@ Broker 的 Failover，可以分为两个过程，一个是 broker failure， 一
 当然发生这个的原因，除了server dead，还有很多，比如网络不通；但是我们不关心，只要出现 sessioin timeout，我们就认为这个 broker 不工作了； 
 会出现如下的log，
 
-~~~
-controller.log： “INFO [BrokerChangeListener on Controller 1]: Newly added brokers: 3, deleted brokers: 4, all live brokers: 3,2,1 (kafka.controller.ReplicaStateMachine$BrokerChangeListener)” “INFO [Controller 1]: Broker failure callback for 4 (kafka.controller.KafkaController)”
-~~~
+
+    controller.log： “INFO [BrokerChangeListener on Controller 1]: Newly added brokers: 3, deleted brokers: 4, all live brokers: 3,2,1 
+    (kafka.controller.ReplicaStateMachine$BrokerChangeListener)” “INFO [Controller 1]: Broker failure callback for 4 
+    (kafka.controller.KafkaController)”
+
 
 
 
@@ -169,9 +173,11 @@ controller.log： “INFO [BrokerChangeListener on Controller 1]: Newly added br
 
 这里的 startup，就是指 failover 中的 startup，会出现如下的log，
 
-~~~
-controller.log： “INFO [BrokerChangeListener on Controller 1]: Newly added brokers: 3, deleted brokers: 4, all live brokers: 3,2,1 (kafka.controller.ReplicaStateMachine$BrokerChangeListener)” “INFO [Controller 1]: New broker startup callback for* *3 (kafka.controller.KafkaController)”
-~~~
+
+    controller.log： “INFO [BrokerChangeListener on Controller 1]: Newly added brokers: 3, deleted brokers: 4, all live brokers: 3,2,1 
+    (kafka.controller.ReplicaStateMachine$BrokerChangeListener)” “INFO [Controller 1]: New broker startup callback for* *3 
+    (kafka.controller.KafkaController)”
+
 
 
 
@@ -188,9 +194,10 @@ Partition 的 leader 在 broker failover 后，不会马上自动切换回来，
 前面说明过，某个 broker server 会被选出作为 Controller，这个选举的过程就是依赖于 zookeeper 的 ephemeral node，谁可以先在**"/controller"**目录创建节点，谁就是 controller； 
 所以反之，我们也是 watch 这个目录来判断 Controller 是否发生 failover 或 变化。Controller 发生 failover 时，会出现如下 log：
 
-~~~
-controller.log： “INFO [SessionExpirationListener on 1], ZK expired; shut down all controller components and try to re-elect (kafka.controller.KafkaController$SessionExpirationListener)”
-~~~
+
+    controller.log： “INFO [SessionExpirationListener on 1], ZK expired; shut down all controller components and try to re-elect 
+    (kafka.controller.KafkaController$SessionExpirationListener)”
+
 
 
 
