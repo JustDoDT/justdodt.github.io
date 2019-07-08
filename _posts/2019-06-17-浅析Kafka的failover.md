@@ -22,7 +22,7 @@ tags:
 
 基本思想大同小异，如下图 (Ref.2):
 
-![1562601012016](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\1562601012016.png)
+![Kafka](/img/Kafka/failover1.png) 
 
 
 
@@ -34,7 +34,7 @@ tags:
 
 为了支持replica机制，主要增加的两个组件是，Replica Manager和Controller， 如下图：
 
-![1562601090822](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\1562601090822.png)
+![Kafka](/img/Kafka/failover2.png) 
 
 
 
@@ -75,7 +75,7 @@ kafka 的做法就是在brokers 中选出一个作为 controller, 来做为 mast
 
 首先无论是 high-level 或 low-level consumer，我们要知道他是怎么从 kafka 读数据的？
 
-![1562604979886](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\1562604979886.png)
+![Kafka](/img/Kafka/failover3.png) 
 
 kafka 的 log patition 存在文件中，并以 offset 作为索引，所以 consumer 需要对于每个 partition 记录上次读到的 offset （high-level和low-level的区别在于是 kafka 帮你记，还是你自己记）；
 
@@ -84,7 +84,7 @@ kafka 的 log patition 存在文件中，并以 offset 作为索引，所以 con
 但如果是 Kafka broker dead，并发生 partition leader 切换，如何保证在新的 leader 上这个 offset 仍然有效？ 
 Kafka 用一种机制，即 committed offset，来保证这种一致性，如下图(Ref.2)
 
-![1562605014302](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\1562605014302.png)
+![Kafka](/img/Kafka/failover4.png) 
 
 log 除了有 log end offset 来表示 log 的末端，还有一个 committed offset， 表示有效的 offset； 
 committed offset 只有在**所有 replica 都同步完该 offset** 后，才会被置为该offset； 
@@ -213,41 +213,6 @@ Controller 的 failover 过程如下：
 ### 参考资料
 
 - [Apche Kafka 的生与死 – failover 机制详解](<https://www.cnblogs.com/fxjwind/p/4972244.html>)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
