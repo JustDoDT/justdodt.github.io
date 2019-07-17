@@ -16,6 +16,9 @@ tags:
 
 ### 解压Maxwell
 
+`从官网上下载`
+- [下载地址](http://maxwells-daemon.io/quickstart/)
+
 ### 修改MySQL的配置文件my.cnf
 
 ~~~
