@@ -14,10 +14,14 @@ tags:
 
 ### 下载Maxwell
 
-### 解压Maxwell
-
 `从官网上下载`
 - [下载地址](http://maxwells-daemon.io/quickstart/)
+
+### 解压Maxwell
+~~~
+[hadoop@hadoop000 bin]$ unzip maxwell-1.17.1.zip
+~~~
+
 
 ### 修改MySQL的配置文件my.cnf
 
