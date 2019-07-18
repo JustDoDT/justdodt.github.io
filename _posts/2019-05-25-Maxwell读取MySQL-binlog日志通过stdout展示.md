@@ -10,6 +10,39 @@ tags:
 
 ---
 
+### Maxwell简介
+
+Maxwell实时抓取mysql数据的原理也是基于binlog，和canal相比，maxwell更像cannal server + 实时client。（数据抽取+数据转换）
+
+`maxwell集成了kafka producer，直接从binlog获取数据更新并写入kafka，而canal则需要自己开发实时client将canal读取的binlog内容写入kafka中。`
+
+**Maxwell特色：**
+
+- 支持bootstrap启动，同步历史数据
+- 集成kafka，直接将数据落地到kafka
+- 已将binlog中的DML和DDL进行了模式匹配，将其解码为有schema的json（有利于后期将其重组为NoSQL支持的语言）
+- maxwell的配置文件只有一个config.properties，在home目录。其中除了需要配置mysql master的地址、kafka地址还需要配置一个用于存放maxwell相关信息的mysql地址，maxwell会把读取binlog关系的信息，如binlog name、position。
+
+`缺点：`
+
+- 一个MySQL实例需要对应一个maxwell进程
+- bootstrap的方案使用的是`select *`
+
+### Maxwell VS Canal VS mysql_streamer
+
+|特色|Canal|Maxwell|mysql_streamer|
+| -- | -- | -- | -- |
+|语言|Java|Java|Python|
+|活跃度|活跃度一般|最活跃|不活跃|
+|HA|支持|定制|定制|支持|
+|数据落地|定制|落地到kafka|落地到kafka|
+|分区|支持|不支持|不支持|
+|bootstrap|不支持|支持|支持|
+|数据格式|格式自由|json(固定格式)|json(固定格式)|
+|文档|较详细|较详细|略粗|
+|随机读|支持|支持|支持|
+
+
 
 
 ### 下载Maxwell
@@ -384,7 +417,10 @@ mysql> show variables like '%read_only%';
 在binlog格式为statement时，容易出现跨库操作丢失数据的情况，在row格式下最安全，不会出现跨库丢失数据的情况。statement的优点为占用磁盘空间比较小。row的缺点是一行一行的记录SQL，占用空间比较大。
 
 
+### 参考文档
 
+- [Maxwell官网](http://maxwells-daemon.io/)
+- [实时抓取MySQL的更新数据到Hadoop](http://bigdatadecode.club/%E5%AE%9E%E6%97%B6%E6%8A%93%E5%8F%96MySQL%E7%9A%84%E6%9B%B4%E6%96%B0%E6%95%B0%E6%8D%AE%E5%88%B0Hadoop.html)
 
 
 
