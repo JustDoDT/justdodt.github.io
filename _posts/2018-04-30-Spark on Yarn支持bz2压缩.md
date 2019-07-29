@@ -6,7 +6,7 @@ author:     "JustDoDT"
 header-img: "img/haha.jpg"
 catalog: true
 tags:
-    - spark
+    - Spark
 ---
 
 ### 1. 修改配置文件
