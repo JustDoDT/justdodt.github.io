@@ -6,7 +6,7 @@ author:     "JustDoDT"
 header-img: "img/haha.jpg"
 catalog: true
 tags:
-    - linux,shell
+    - Shell
 ---
 
 ### shell 实现发送带附件的邮件
