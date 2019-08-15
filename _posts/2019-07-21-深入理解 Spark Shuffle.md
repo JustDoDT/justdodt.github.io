@@ -215,7 +215,7 @@ Spark Shuffle Read 主要经历从获取数据，序列化流，添加指标统�
 
 - [彻底搞懂 Spark 的 shuffle 过程（shuffle write）](<https://toutiao.io/posts/eicdjo/preview>)
 - [浅析 Spark Shuffle 内存使用](<https://tech.youzan.com/spark_memory_1/>)
-- [[Spark性能优化指南——高级篇](https://tech.meituan.com/2016/05/12/spark-tuning-pro.html)](<https://tech.meituan.com/2016/05/12/spark-tuning-pro.html>)
+- [Spark性能优化指南——高级篇](https://tech.meituan.com/2016/05/12/spark-tuning-pro.html)](<https://tech.meituan.com/2016/05/12/spark-tuning-pro.html>)
 
 
 
