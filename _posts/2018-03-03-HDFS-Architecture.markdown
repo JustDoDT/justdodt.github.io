@@ -135,13 +135,13 @@ NameNode 将整个 namespace ，包括 block 到文件的映射、文件的属�
 - 然后，NameNode 将授予客户端写入权限，并将提供最终将复制文件的 DataNode 的 IP 地址。
 - 根据 HDFS 的可用性，复制因素和机架感知，DataNode IP 地址的选择纯碎是随机的。
 - 假设复制因子被设置成默认值 3，那么对于每个 block，NameNode 将向客户端提供 3 个 DataNode 的 IP 地址列表。该列表对于每个 block 都是唯一的。假设分配结果如下：
-- 对于 block A，列表 A = { DN 1 IP， DN 4 IP, DN 6 IP }
-- 对于 block B，列表 B =｛DN 3 IP， DN 7 IP, DN 9 IP｝
-- 每个 block 将被复制到 3 个不同的 DataNode 中，以保持整个集群中复制因子的一致。
+   -  对于 block A，列表 A = { DN 1 IP， DN 4 IP, DN 6 IP }
+   -  对于 block B，列表 B =｛DN 3 IP， DN 7 IP, DN 9 IP｝
+   - 每个 block 将被复制到 3 个不同的 DataNode 中，以保持整个集群中复制因子的一致。
 - 接下来，整个数据的复制将分为 3 个阶段进行：
-	1) 管道设置
-	2) 数据流和复制
-	3) 管道关闭与确认阶段
+   - 1) 管道设置
+   - 2) 数据流和复制
+   - 3) 管道关闭与确认阶段
 	
 ![复制阶段](/img/2018-04-05-hdfs-Architecture/8.png)
 
