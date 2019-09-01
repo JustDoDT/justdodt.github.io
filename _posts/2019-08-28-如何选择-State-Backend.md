@@ -24,7 +24,7 @@ tags:
 
 Flink 提供了三种可用的状态后端：`MemoryStateBackend` ，`FsStateBackend` ，`RocksDBStateBackend`  。
 
-![flink]()
+![flink](/img/Flink/FlinkStateBackend1.png)
 
 
 
