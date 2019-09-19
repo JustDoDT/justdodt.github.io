@@ -167,7 +167,7 @@ tags:
     </body>
     </html>
    
- #### 发送测试
+#### 发送测试
  
      [hadoop@hadoop001 shell]$cat mail_back.html | mail -s  "$(echo -e "subject\nContent-Type:text/html")"                       2391554474@qq.com
    
