@@ -125,7 +125,7 @@ bash Anaconda3-2019.10-Linux-x86_64.sh
 
 然后一路回车，Yes即可。安装完毕后也需要修改Jupyter Notebook的配置文件。
 
-### 3.安装Apache Toree
+### 4.安装Apache Toree
 
 #### 什么是Apache Toree
 
@@ -180,7 +180,7 @@ Available kernels:
 
 <https://www.anaconda.com/>
 
-https://jupyter-notebook.readthedocs.io/en/stable/notebook.html
+<https://jupyter-notebook.readthedocs.io/en/stable/notebook.html>
 
 
 
