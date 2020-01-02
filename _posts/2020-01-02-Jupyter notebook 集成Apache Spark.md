@@ -1,4 +1,16 @@
-## Jupyter Notebook 集成Apache Spark
+---
+layout:     post
+title:      "Jupyter Notebook 集成Apache Spark"
+date:       2020-01-02 17:04:00
+author:     "JustDoDT"
+header-img: "img/haha.jpg"
+catalog: true
+tags:
+    - Spark
+
+
+---
+
 
 ## 1.简介
 
@@ -95,7 +107,7 @@ c.ContentsManager.root_dir = '/root/.jupyter/'
 
 
 
-![1577898126703](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\1577898126703.png)
+![Spark](/img/Spark/Jupyter/jupyter1.png)
 
 输入密码即可登陆
 
@@ -141,25 +153,24 @@ Available kernels:
 
 
 
-![1577944802305](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\1577944802305.png)
+![Spark](/img/Spark/Jupyter/jupyter2.png)
 
 ###4.创建Spark项目
 
 
-
-![1577945417909](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\1577945417909.png)
+![Spark](/img/Spark/Jupyter/jupyter3.png)
 
 
 
 #### 在Spark Web查看项目
 
-![1577948322269](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\1577948322269.png)
+![Spark](/img/Spark/Jupyter/jupyter4.png)
 
 
 
 
 
-![1577948358591](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\1577948358591.png)
+![Spark](/img/Spark/Jupyter/jupyter5.png)
 
 
 
