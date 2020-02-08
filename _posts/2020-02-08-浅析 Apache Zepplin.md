@@ -358,7 +358,7 @@ artifact
 
 
 
-- 也可以直接用 `shell` 的 `Interpreters``
+- 也可以直接用 `shell` 的 `Interpreters`
 
 ![zeppelin](/img/Zeppelin/ZeppelinDemo/Zeppelin29.png)
 
