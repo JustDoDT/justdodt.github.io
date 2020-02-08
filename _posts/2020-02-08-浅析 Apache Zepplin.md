@@ -23,7 +23,8 @@ tags:
 
 ## 什么是Apache Zeppelin
 
-`Apache Zeppelin`是一个基于`Web`的交互式数据分析开源框架，提供了数据分析、数据可视化等功能，类似于`Jupyter Notebook`，不过功能比`Jupyter Notebook`强大很多，她是属于企业级产品，支持超过`20`种后端语言，比如`Java/Scala/Python/SQL/MarkDown/Shell`等。开发者可以自定义开发更多的解释器为`Zeppelin`添加执行引擎，官方现在支持的执行引擎有`Spark/JDBC/Python/Alluxio/Beam/Cassandra/Elasticsearch/Flink/HBase/HDFS/Hive/Kylin/Livy/MarkDown/Neo4j/Pig/PostgreSQL/R`等。
+`Apache Zeppelin`是一个基于`Web`的交互式数据分析开源框架，提供了数据分析、数据可视化等功能，类似于`Jupyter Notebook`，不过功能比`Jupyter Notebook`强大很多，她是属于企业级产品，支持超过`20`种后端语言，比如`Java/Scala/Python/SQL/MarkDown/Shell`等。开发者可以自定义开发更多的解释器为`Zeppelin`添加执行引擎，官方现在支持的执行引擎有`Spark/JDBC/Python/Alluxio/Beam/Cassandra/Elasticsearch/Flink/HBase/HDFS/Hive/Kylin`
+`/Livy/MarkDown/Neo4j/Pig/PostgreSQL/R`等。
 
 ### Apache Zeppelin 架构简介
 
@@ -33,7 +34,10 @@ tags:
 - `Zeppelin Server`
 - `Zeppelin Interpreter`
 
-![1581148506356](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\1581148506356.png)
+![zeppelin](/img/Zeppelin/ZeppelinDemo/Zeppelin1.png)
+
+
+
  ` Zeppelin`前端是基于`AngularJS`。
  `Zeppelin Server`是一个基于`Jetty`的轻量级`Web Server`，主要负责以下一些功能：
 
@@ -145,27 +149,28 @@ Zeppelin start                                             [  OK  ]
 
 
 
-![1579366748622](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\1579366748622.png)
+![zeppelin](/img/Zeppelin/ZeppelinDemo/Zeppelin2.png)
+
 
 
 
 ## 创建 mysql notebook
 
-![1579366560697](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\1579366560697.png)
+![zeppelin](/img/Zeppelin/ZeppelinDemo/Zeppelin3.png)
 
 
 
-![1580801257905](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\1580801257905.png)
+![zeppelin](/img/Zeppelin/ZeppelinDemo/Zeppelin4.png)
 
 
 
 - 往下拉，选择` jdbc`
 
-![1580812726923](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\1580812726923.png)
+![zeppelin](/img/Zeppelin/ZeppelinDemo/Zeppelin5.png)
 
 
 
-![1580812744945](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\1580812744945.png)
+![zeppelin](/img/Zeppelin/ZeppelinDemo/Zeppelin6.png)
 
 需要填写的有`5`个地方
 
@@ -183,27 +188,22 @@ artifact
 
 
 
-![1580812664428](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\1580812664428.png)
+![zeppelin](/img/Zeppelin/ZeppelinDemo/Zeppelin7.png)
 
 
 
-![1580819103428](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\1580819103428.png)
+![zeppelin](/img/Zeppelin/ZeppelinDemo/Zeppelin8.png)
 
 
 
-![1580819119043](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\1580819119043.png)
+![zeppelin](/img/Zeppelin/ZeppelinDemo/Zeppelin9.png)
+
+
+![zeppelin](/img/Zeppelin/ZeppelinDemo/Zeppelin10.png)
 
 
 
-![1580819147583](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\1580819147583.png)
-
-
-
-![1580819179539](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\1580819179539.png)
-
-
-
-![1580819198211](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\1580819198211.png)
+![zeppelin](/img/Zeppelin/ZeppelinDemo/Zeppelin11.png)
 
 
 
@@ -211,7 +211,7 @@ artifact
 
 
 
-![1580822737177](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\1580822737177.png)
+![zeppelin](/img/Zeppelin/ZeppelinDemo/Zeppelin12.png)
 
 
 
@@ -229,7 +229,7 @@ artifact
 
 
 
-![1580823253580](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\1580823253580.png)
+![zeppelin](/img/Zeppelin/ZeppelinDemo/Zeppelin13.png)
 
 >当出现 `com.fasterxml.jackson.databind.JsonMappingException: Incompatible Jackson version: 2.8.11-1`
 
@@ -243,35 +243,33 @@ artifact
 
 ### Spark 样例代码
 
-![1580831909426](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\1580831909426.png)
+![zeppelin](/img/Zeppelin/ZeppelinDemo/Zeppelin14.png)
 
 ### Spark SQL
 
-![1580832112436](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\1580832112436.png)
+![zeppelin](/img/Zeppelin/ZeppelinDemo/Zeppelin15.png)
 
-![1580832172246](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\1580832172246.png)
-
+![zeppelin](/img/Zeppelin/ZeppelinDemo/Zeppelin16.png)
 ### SparkSQL处理HDFS上的数据
 
-![1580833605183](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\1580833605183.png)
+![zeppelin](/img/Zeppelin/ZeppelinDemo/Zeppelin17.png)
 
 `Apark Zeppelin`里面自带`Apache  Spark`，并且自带了`sc`，用 `Apache Zeppelin`还是比直接用`Spark Shell`或者`Spark SQL `来调试方便不少。
 
 ### Apache Zeppelin 操作Shell
 
-![1580835973951](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\1580835973951.png)
-
+![zeppelin](/img/Zeppelin/ZeppelinDemo/Zeppelin18.png)
 
 
 ### Apache Zeppelin 操作MarkDown
 
 `Apache Zeppelin` 里面自带了 `MarkDown`
 
-![1580840136006](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\1580840136006.png)
+![zeppelin](/img/Zeppelin/ZeppelinDemo/Zeppelin19.png)
 
 ### Apache Zeppelin 集成 Apache Flink
 
-![1580910582254](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\1580910582254.png)
+![zeppelin](/img/Zeppelin/ZeppelinDemo/Zeppelin20.png)
 
 
 
@@ -320,29 +318,25 @@ artifact
 
 - 测试
 
-![1581046124420](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\1581046124420.png)
+![zeppelin](/img/Zeppelin/ZeppelinDemo/Zeppelin21.png)
 
 
 
 ### Apache Zeppelin 集成 HDFS
 
-![1580880512706](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\1580880512706.png)
 
-
-
-![1581142915393](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\1581142915393.png)
-
+![zeppelin](/img/Zeppelin/ZeppelinDemo/Zeppelin22.png)
 
 
 ### Apache Zeppelin 集成 Apache Hive
 
 - 添加hive的Interpreters
 
-![1581053916323](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\1581053916323.png)
+![zeppelin](/img/Zeppelin/ZeppelinDemo/Zeppelin23.png)
 
-![1581053978266](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\1581053978266.png)
+![zeppelin](/img/Zeppelin/ZeppelinDemo/Zeppelin24.png)
 
-![1581054050294](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\1581054050294.png)
+![zeppelin](/img/Zeppelin/ZeppelinDemo/Zeppelin25.png)
 
 - 启动hive2 
 
@@ -350,23 +344,23 @@ artifact
 
 - 测试
 
-![1581053794558](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\1581053794558.png)
+![zeppelin](/img/Zeppelin/ZeppelinDemo/Zeppelin26.png)
 
 
 
 ### Apache Zeppelin 集成 Elasticsearch
 
-![1581143970232](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\1581143970232.png)
+![zeppelin](/img/Zeppelin/ZeppelinDemo/Zeppelin27.png)
 
 - 可以直接用 Elasticsearch 的 Interpreters
 
-![1581144076840](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\1581144076840.png)
+![zeppelin](/img/Zeppelin/ZeppelinDemo/Zeppelin28.png)
 
 
 
 - 也可以直接用 shell 的 Interpreters
 
-![1581144117200](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\1581144117200.png)
+![zeppelin](/img/Zeppelin/ZeppelinDemo/Zeppelin29.png)
 
 ## Apache Zeppelin  VS  Jupyter Notebook
 
