@@ -330,7 +330,7 @@ artifact
 
 ### Apache Zeppelin 集成 Apache Hive
 
-- 添加hive的Interpreters
+- 添加`hive`的`Interpreters`
 
 ![zeppelin](/img/Zeppelin/ZeppelinDemo/Zeppelin23.png)
 
@@ -338,7 +338,7 @@ artifact
 
 ![zeppelin](/img/Zeppelin/ZeppelinDemo/Zeppelin25.png)
 
-- 启动hive2 
+- 启动`hive2` 
 
 > [hadoop@hadoop001 lib]$ hiveserver2 &
 
@@ -352,19 +352,19 @@ artifact
 
 ![zeppelin](/img/Zeppelin/ZeppelinDemo/Zeppelin27.png)
 
-- 可以直接用 Elasticsearch 的 Interpreters
+- 可以直接用 `Elasticsearch` 的 `Interpreters`
 
 ![zeppelin](/img/Zeppelin/ZeppelinDemo/Zeppelin28.png)
 
 
 
-- 也可以直接用 shell 的 Interpreters
+- 也可以直接用 `shell` 的 `Interpreters``
 
 ![zeppelin](/img/Zeppelin/ZeppelinDemo/Zeppelin29.png)
 
 ## Apache Zeppelin  VS  Jupyter Notebook
 
-Jupyter Notebook是IPython Notebook的演变版，更出名。
+`Jupyter Notebook`是`IPython Notebook`的演变版，更出名。
 
 | 对比       | Zeppelin | Jupyter  |
 | ---------- | -------- | -------- |
@@ -379,7 +379,7 @@ Jupyter Notebook是IPython Notebook的演变版，更出名。
 
 
 
-Apache Zeppelin 功能强大，适合于企业级应用，而Jupyter 更适用于个人测试学习，Apache Zeppelin集成了Flink/Spark等大数据知名产品，而Jupyter未集成Flink，功能远不如Apache Zeppelin强大。
+`Apache Zeppelin` 功能强大，适合于企业级应用，而`Jupyter` 更适用于个人测试学习，`Apache Zeppelin`集成了`Flink/Spark`等大数据知名产品，而`Jupyter`未集成`Flink`，功能远不如`Apache Zeppelin`强大。
 
 ### 参考文档
 
