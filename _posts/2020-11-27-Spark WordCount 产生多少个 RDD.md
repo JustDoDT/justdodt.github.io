@@ -57,7 +57,8 @@ hadoopFile 方法返回的是个 RDD（HadoopRDD)，在对这个RDD调用map方�
 
 ###  flatMap 
 
-![image-20201126201533188](C:%5CUsers%5CHUAWEI%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20201126201533188.png)
+![spark](/img/Spark/spark wordcount/image-20201126201533188.png)
+
 
 flatMap 产生了一个RDD，MapPartitionsRDD
 
@@ -84,10 +85,9 @@ reduceByKey 产生了一个RDD，ShuffledRDD
 
 ### saveAsTextFile
 
-![spark](/img/Spark/spark wordcount/image-20201126203212183.png)
-
 ![spark](/img/Spark/spark wordcount/image-20201126203123787.png)
 
+![spark](/img/Spark/spark wordcount/image-20201126203212183.png)
 
 其实，在执行saveAsTextFile之前，我们可以通过RDD提供的toDebugString看到这些个算子在调用的时候到底产生了多少个RDD
 
