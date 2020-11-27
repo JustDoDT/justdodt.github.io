@@ -1,5 +1,3 @@
-## Spark WordCount 产生多少个 RDD
-
 ---
 layout:     post
 title:      "Spark WordCount 产生多少个 RDD"
@@ -9,8 +7,6 @@ header-img: "img/haha.jpg"
 catalog: true
 tags:
     - Spark
-
-
 ---
 
 ### 概述
