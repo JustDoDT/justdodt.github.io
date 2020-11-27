@@ -40,19 +40,18 @@ object WordCount {
 
 通过下面的源码，可以看到在这个方法中先调用了一个 hadoopFile 方法再调用 map 方法
 
-![image-20201126200520044](C:%5CUsers%5CHUAWEI%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20201126200520044.png)
+![spark](/img/Spark/spark wordcount/image-20201126200520044.png)
 
+![spark](/img/Spark/spark wordcount/image-20201126200639976.png)
 
-
-![image-20201126200639976](C:%5CUsers%5CHUAWEI%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20201126200639976.png)
 
 hadoopFile 方法返回的是个 RDD（HadoopRDD)，在对这个RDD调用map方法，点到 map 方法中可以看到 ，map 方法中产生了一个 MapPartitionsRDD
 
-![image-20201126200841839](C:%5CUsers%5CHUAWEI%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20201126200841839.png)
 
+![spark](/img/Spark/spark wordcount/image-20201126200841839.png)
 
+![spark](/img/Spark/spark wordcount/image-20201126201054624.png)
 
-![image-20201126201054624](C:%5CUsers%5CHUAWEI%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20201126201054624.png)
 
 也就是说 textfile 产生 2个 RDD分别是 HadoopRDD和MapPartitionsRDD
 
@@ -64,7 +63,7 @@ flatMap 产生了一个RDD，MapPartitionsRDD
 
 ### map
 
-![image-20201126201658479](C:%5CUsers%5CHUAWEI%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20201126201658479.png)
+![spark](/img/Spark/spark wordcount/image-20201126201658479.png)
 
 map 产生了一个RDD，MapPartitionsRDD
 
@@ -74,21 +73,21 @@ map 产生了一个RDD，MapPartitionsRDD
 
 这里要注意了，reduceByKey 虽然是一个 rdd 调用的，但 reduceByKey 这个方法不是 RDD 中的方法，我们可以在 RDD 中找到如下的一个隐式转换，当我们去调用reduceByKey 方法时，会发生隐式转换，隐式的 RDD 转化成了PairRDDFunctions这个类，reduceByKey 是 PairRDDFunctions 的方法。
 
-![image-20201126202259290](C:%5CUsers%5CHUAWEI%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20201126202259290.png)
+![spark](/img/Spark/spark wordcount/image-20201126202259290.png)
 
-![image-20201126202329512](C:%5CUsers%5CHUAWEI%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20201126202329512.png)
+![spark](/img/Spark/spark wordcount/image-20201126202329512.png)
 
-![image-20201126202721752](C:%5CUsers%5CHUAWEI%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20201126202721752.png)
+![spark](/img/Spark/spark wordcount/image-20201126202721752.png)
+
 
 reduceByKey 产生了一个RDD，ShuffledRDD
 
-###saveAsTextFile
+### saveAsTextFile
 
-![image-20201126203123787](C:%5CUsers%5CHUAWEI%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20201126203123787.png)
+![spark](/img/Spark/spark wordcount/image-20201126203212183.png)
 
+![spark](/img/Spark/spark wordcount/image-20201126203123787.png)
 
-
-![image-20201126203212183](C:%5CUsers%5CHUAWEI%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20201126203212183.png)
 
 其实，在执行saveAsTextFile之前，我们可以通过RDD提供的toDebugString看到这些个算子在调用的时候到底产生了多少个RDD
 
