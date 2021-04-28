@@ -1,3 +1,14 @@
+---
+layout:     post
+title:      "HBase Shell 从入门到精通"
+date:       2021-04-27 23:01:00
+author:     "JustDoDT"
+header-img: "img/haha.jpg"
+catalog: true
+tags:
+    - HBase
+---
+
 ## HBase shell 使用
 
 ### 1. 概述
